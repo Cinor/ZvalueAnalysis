@@ -9,62 +9,17 @@ using Newtonsoft.Json;
 using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 
+
 namespace GetCompanyInfoTest
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            HtmlWeb web;
-            HtmlDocument doc;
-            HtmlNodeCollection nodes;
-            string xp_title = string.Empty;
-
-            web = new HtmlWeb();
-            string url = "http://mops.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2330&SYEAR=2015&SSEASON=4&REPORT_ID=C/";
-            string url2 = @"http://mops.twse.com.tw/server-java/t164sb01";
-            //string url3 = "http://mops.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2330&SYEAR=2015&SSEASON=4&REPORT_ID=C";
-            var url4 = "http://html-agility-pack.net/";
-            var url5 = "http://mops.twse.com.tw/";
-            var url6 = "http://mops.twse.com.tw/mops/web/ajax_t163sb15?TYPEK=all&step=1&firstin=1&off=1&queryName=co_id&t05st29_c_ifrs=N&t05st30_c_ifrs=N&isnew=false&co_id=6166&year=106";
-            var url7 = "http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv&date=20171101&stockNo=6166";
-            doc = web.Load(url6);
-
-            //xp_title = "/tr/td";
-            //nodes = doc.DocumentNode.SelectNodes(xp_title);
-            //nodes = doc.DocumentNode.SelectNodes("//th/td");
-
-            //doc = web.Load("http://www.google.com/search?hl=en&q=xpath&oq=XPath");
-
-            xp_title = @"//h3[@class=""r""]";
-            //var xp_title2 = @"//div[@class=""f kv_SWb""]";
-            xp_title = @"html";
-
-
-            nodes = doc.DocumentNode.SelectNodes("/html/head/title");
-
-            //抓出財報的項目名稱
-            var nodes2 = doc.DocumentNode.SelectNodes("//tr/th[@class!=\"tblHead\"]");
-
-            //抓出第二季的資料
-            var nodes3 = doc.DocumentNode.SelectNodes("//td[@class!=\"reportCont\"][2]");
-
-            var numbersAndWords = nodes2.Zip(nodes3, (w, n) => new { Word = w, Number = n });
-            foreach (var nw in numbersAndWords)
-            {
-                Console.WriteLine(nw.Word.InnerText + ":" + nw.Number.InnerText);
-            }
-
-            Console.WriteLine("node2 count: " + nodes2.Count);
-
-            Console.WriteLine("node3 count: " + nodes3.Count);
-
-            //GetJsonData();
-
-            //Console.Read();
-
             while (true)
             {
+                /*
                 Console.WriteLine("輸入股票代號及季別:XXXXyyyyQX");
 
                 string input = Console.ReadLine();
@@ -87,11 +42,29 @@ namespace GetCompanyInfoTest
                 {
                     GetCompanyFinanceStatBeforeIfrs(input.Substring(0, 4), input.Substring(4));
                 }
+                */
+
+                Console.WriteLine("輸入股票代號");
+
+                var stockId = Console.ReadLine();
+
+                GetCompanyFinanceStat(stockId, "2017Q2");
+
+                //if (CheckValidStockId(stockId))
+                //{
+                //    ShowCompLstZValue(GetCompanyTenStatDataLst(stockId));
+                //}
+                //else
+                //{
+                //    if (stockId == "")
+                //    {
+                //        break;
+                //    }
+
+                //    Console.WriteLine("請輸入正確的股票代號");
+                //}
 
 
-                //GetCompanyFinanceStat(input.Substring(0, 4), input.Substring(4));
-
-                //Console.WriteLine(string.Format("stock id:{0} season:{1} 股價:", input.Substring(0,4), input.Substring(4)) + GetStockPrice(input.Substring(0, 4), input.Substring(4)));
             }
         }
 
@@ -100,7 +73,7 @@ namespace GetCompanyInfoTest
         /// </summary>
         /// <param name="stockId">股票代號(Ex:6616)</param>
         /// <param name="date">年季別(Ex:2017Q4)</param>
-        private static void GetCompanyFinanceStatBeforeIfrs(string stockId, string date)
+        private static Company GetCompanyFinanceStatBeforeIfrs(string stockId, string date)
         {
             try
             {
@@ -162,6 +135,8 @@ namespace GetCompanyInfoTest
 
                 //var aaa = Convert.ToInt32(BSData["流動資產"]);
 
+                company.Ticker = stockId;
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -185,6 +160,8 @@ namespace GetCompanyInfoTest
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
                 Console.WriteLine(company);
+
+                return company;
             }
             catch (Exception)
             {
@@ -204,26 +181,6 @@ namespace GetCompanyInfoTest
             return myWebRequest;
         }
 
-        internal static void GetJsonData()
-        {
-            using (WebClient wc = new WebClient())
-            {
-                var jsonStr = wc.DownloadString("http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv&date=20171001&stockNo=6166");
-
-                //JObject json = XObject.Parse(jsonStr);
-
-                JObject o = JObject.Parse(jsonStr);
-
-                //抓股價資料裡最後一筆的收盤價
-                Console.WriteLine(o["data"].Last()[6]);
-
-                //dynamic json = JsonConvert.DeserializeObject(jsonStr);
-
-                //Console.WriteLine(json["data"]);
-
-
-            }
-        }
         /// <summary>
         /// 季的股價資訊
         /// </summary>
@@ -232,23 +189,37 @@ namespace GetCompanyInfoTest
         /// <returns></returns>
         internal static string GetStockPrice(string stockId, string date)
         {
-            using (WebClient wc = new WebClient())
+            try
             {
-                string url = "http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv";
+                using (WebClient wc = new WebClient())
+                {
+                    string url = "http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv";
 
-                url += "&date=" + date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4));
+                    url += "&date=" + date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4));
 
-                url += "&stockNo=" + stockId.ToString();
+                    url += "&stockNo=" + stockId.ToString();
 
-                var jsonStr = wc.DownloadString(url);
+                    var jsonStr = wc.DownloadString(url);
 
-                JObject stockDataO = JObject.Parse(jsonStr);
+                    JObject stockDataO = JObject.Parse(jsonStr);
 
-                return stockDataO["data"].Last()[6].ToString();
+                    //沒有撈到資料(網站更新時會沒有資料)
+                    if (stockDataO["stat"].ToString() != "OK")
+                    {
+                        return "沒有撈到股票資票";
+                    }
+
+                    return stockDataO["data"].Last()[6].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
-        internal static void GetCompanyFinanceStat(string stockId, string date)
+        internal static Company GetCompanyFinanceStat(string stockId, string date)
         {
             Company company = new Company();
 
@@ -308,6 +279,8 @@ namespace GetCompanyInfoTest
 
             //var aaa = Convert.ToInt32(BSData["流動資產"]);
 
+            company.Ticker = stockId;
+
             company.Date = date;
 
             company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -330,8 +303,8 @@ namespace GetCompanyInfoTest
 
             company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
-            Console.WriteLine(company);
-
+            //Console.WriteLine(company);
+            return company;
             //Console.WriteLine(string.Format("stock id:{0} season:{1} 股價:", stockId, date) + GetStockPrice(stockId, date));
         }
 
@@ -381,6 +354,176 @@ namespace GetCompanyInfoTest
                 strNum += n;
             }
             return int.Parse(strNum);
+        }
+
+        /// <summary>
+        /// 回傳十年間的公司財報資料
+        /// </summary>
+        /// <param name="stockId">股市代號(Ex:6166)</param>
+        /// <returns>回傳公司十年的Z值</returns>
+        internal static List<Company> GetCompanyTenStatDataLst(string stockId)
+        {
+            try
+            {
+
+                var season = LastStatDate();
+
+                Company temp = new Company();
+
+                List<Company> compTenYrDataLst = new List<Company>();
+
+                temp = GetCompanyFinanceStat(stockId, season);
+
+                compTenYrDataLst.Add(temp);
+
+                for (int i = 0; i < 9; i++)
+                {
+                    if ((Convert.ToInt32(season.Substring(0, 4)) - i) < 2013)
+                    {
+                        temp = GetCompanyFinanceStatBeforeIfrs(stockId, (Convert.ToInt32(season.Substring(0, 4)) - i).ToString() + "Q4");
+                    }
+                    else
+                    {
+                        temp = GetCompanyFinanceStatBeforeIfrs(stockId, (Convert.ToInt32(season.Substring(0, 4)) - i).ToString() + "Q4");
+                    }
+
+                    compTenYrDataLst.Add(temp);
+                }
+
+                return compTenYrDataLst;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        /// <summary>
+        /// 回傳最新的財報資料年季別
+        /// </summary>
+        /// <returns>Ex:2017Q4</returns>
+        internal static string LastStatDate()
+        {
+            //第一季財報出來月份
+            DateTime fstSeasonStatDt = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/5/15");
+
+            DateTime secSeasonStatDt = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/8/14");
+
+            DateTime thdSeasonStatDt = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/11/14");
+
+            DateTime lstSeasonStatDt = Convert.ToDateTime(DateTime.Now.Year.ToString() + "/3/31");
+
+            if (DateTime.Compare(DateTime.Now, lstSeasonStatDt) <= 0 )
+            {
+                return DateTime.Now.AddYears(-1).Year.ToString() + "Q3";
+            }
+            else if (DateTime.Compare(DateTime.Now, lstSeasonStatDt) > 0 && DateTime.Compare(DateTime.Now, fstSeasonStatDt) <= 0)
+            {
+                return DateTime.Now.AddYears(-1).Year.ToString() + "Q4";
+            }
+            else if (DateTime.Compare(DateTime.Now, fstSeasonStatDt) > 0 && DateTime.Compare(DateTime.Now, secSeasonStatDt) <= 0)
+            {
+                return DateTime.Now.Year.ToString() + "Q1";
+            }
+            else if (DateTime.Compare(DateTime.Now, secSeasonStatDt) > 0 && DateTime.Compare(DateTime.Now, thdSeasonStatDt) <= 0)
+            {
+                return DateTime.Now.Year.ToString() + "Q2";
+            }
+            else
+            {
+                return DateTime.Now.Year.ToString() + "Q3";
+            }
+        }
+
+        /// <summary>
+        /// 查看是否有此檔股票代號
+        /// </summary>
+        /// <param name="stockId"></param>
+        /// <returns></returns>
+        internal static bool CheckValidStockId(string stockId)
+        {
+            if (stockId == "")
+            {
+                return false;
+            }
+
+            string url = "http://isin.twse.com.tw/isin/C_public.jsp?strMode=2";
+
+            WebClient webC = new WebClient();
+
+            HtmlWeb web = new HtmlWeb();
+
+            HtmlDocument doc = new HtmlDocument();
+
+            //doc = web.Load(url);
+
+            doc.Load(webC.OpenRead(url), Encoding.GetEncoding("big5"));
+            //doc.Load(web.OpenRead(url));
+
+            //WebBrowser htmlbrowser = new WebBrowser();
+
+            //var node = doc.DocumentNode.SelectNodes("//tbody/tr[position()>2]/td[1]");
+            //doc.ParsedText = EncodToBig5(doc.ParsedText);
+
+            var nodes = doc.DocumentNode.SelectNodes("//tr[position()>2]/td[1]");
+
+            if (nodes == null)
+            {
+                return false;
+            }
+
+            var stockCnt = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                        .Where(s => s.InnerText.Split('　').First() == stockId)
+                                        .Count();
+
+            //var ticker = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+            //                                    .Where(s => s.InnerText.Split('　').First() == stockId)
+            //                                    .First();
+
+            var stockZhName = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                        .Where(s => s.InnerText.Split('　').First() == stockId)
+                                        .Select(s => s.InnerText.Split('　').Last());
+
+            if (stockCnt != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 顯示zvalue
+        /// </summary>
+        /// <param name="cmpLst"></param>
+        internal static void ShowCompLstZValue(List<Company> cmpLst)
+        {
+            Console.WriteLine("股票代號" + cmpLst.First().Ticker);
+
+            foreach(var c in cmpLst)
+            {
+                Console.Write(string.Format("{0} ", c.Date));
+            }
+            Console.WriteLine();
+
+            foreach (var c in cmpLst)
+            {
+                Console.Write(string.Format("{0} ", decimal.Round(Convert.ToDecimal(c.ZValue),3)));
+            }
+        }
+
+        static string EncodToBig5(string source)
+        {
+            //string source = "⊃;nÅé&frac14;Ò⊃;Õ¤¤ªº¤@¯ë©Ê¿ù»~¡G&frac14;Ð·Ç GUI (⊃;Ï§Î¤Æ¥Î¤á¤¶­±)¡C";
+            byte[] unknow = Encoding.GetEncoding(28591).GetBytes(source);
+            string Big5 = Encoding.GetEncoding(950).GetString(unknow);
+            return Big5;
+            Console.WriteLine(Big5);
+            Console.ReadLine();
         }
     }
 }
