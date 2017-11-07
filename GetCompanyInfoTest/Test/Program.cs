@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using YahooFinanceApi;
 
 namespace Test
 {
@@ -19,31 +20,6 @@ namespace Test
 
                 while (true)
                 {
-                    /*
-                    Console.WriteLine("輸入股票代號及季別:XXXXyyyyQX");
-
-                    string input = Console.ReadLine();
-
-                    var stockId = input.Substring(0, 4);
-
-                    var year = input.Substring(4).Substring(0, 4);
-
-                    var season = input.Substring(4).Substring(4);
-
-                    if (input == "")
-                    {
-                        break;
-                    }
-                    else if(Convert.ToInt32(year) >= 2013)
-                    {
-                        GetCompanyFinanceStat(input.Substring(0, 4), input.Substring(4));
-                    }
-                    else if(Convert.ToInt32(year) < 2013)
-                    {
-                        GetCompanyFinanceStatBeforeIfrs(input.Substring(0, 4), input.Substring(4));
-                    }
-                    */
-
                     Console.WriteLine("輸入股票代號");
 
                     var stockId = Console.ReadLine();
@@ -51,6 +27,8 @@ namespace Test
                     if (CheckValidStockId(stockId))
                     {
                         ShowCompLstZValue(GetCompanyTenStatDataLst(stockId));
+
+                        //Console.WriteLine();
                     }
                     else
                     {
@@ -59,15 +37,13 @@ namespace Test
                             break;
                         }
 
-                        Console.WriteLine();
+                        //Console.WriteLine();
 
                         Console.WriteLine("請輸入正確的股票代號");
                     }
 
-
+                    Console.Read();
                 }
-
-                Console.Read();
             }
             catch (Exception)
             {
@@ -185,11 +161,11 @@ namespace Test
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -214,7 +190,7 @@ namespace Test
         }
 
         /// <summary>
-        /// 季的股價資訊
+        /// 季的股價資訊 從證交所網站
         /// </summary>
         /// <param name="stockId">股票代號</param>
         /// <param name="date">年季別yyyyQx(x:1~4)</param>
@@ -223,7 +199,7 @@ namespace Test
         {
             try
             {
-                using (WebClient wc = new WebClient())
+                using (MyWebClient wc = new MyWebClient())
                 {
                     //不要在短時間請求網頁
                     Thread.Sleep(1);
@@ -238,6 +214,12 @@ namespace Test
 
                     var jsonStr = wc.DownloadString(url);
 
+                    if (jsonStr == "")
+                    {
+                        //沒有連到網頁
+                        return "0";
+                    }
+
                     JObject stockDataO = JObject.Parse(jsonStr);
 
                     //沒有撈到資料(網站更新時會沒有資料)
@@ -249,9 +231,45 @@ namespace Test
                     return stockDataO["data"].Last()[6].ToString();
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return "0";
+
+                throw;
+            }
+        }
+
+        internal static string GetStockPriceFromYah(string stockId, string date)
+        {
+            try
+            {
+                var ticker = stockId + ".TW";
+
+                var start_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), 1);
+
+                var str_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4)).Substring(0,2) + 1.ToString()).ToDatetime();
+
+                var end_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(2)));
+
+                var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
+
+                var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
+
+                var last = results.Result.Last();
+
+                if (last != null)
+                {
+                    return last.Close.ToString();
+                }
+                else
+                {
+                    return "0";
+                }
+            }
             catch (Exception)
             {
-                return "0";
 
                 throw;
             }
@@ -368,11 +386,11 @@ namespace Test
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -423,13 +441,13 @@ namespace Test
                 switch (season)
                 {
                     case "Q1":
-                        return "0301";
+                        return "0331";
                     case "Q2":
-                        return "0601";
+                        return "0630";
                     case "Q3":
-                        return "0901";
+                        return "0930";
                     case "Q4":
-                        return "1201";
+                        return "1231";
                     default:
                         return "not valid season";
                 }
@@ -450,7 +468,7 @@ namespace Test
         {
             try
             {
-                if (num == "")
+                if (num == "" && num == "-")
                 {
                     return 0;
                 }
