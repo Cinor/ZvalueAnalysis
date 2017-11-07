@@ -64,15 +64,53 @@
     }
 </table>
 
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Collapsible Group 1</a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="chart_div"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="chart2_div"></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="chartContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
 
 
-<div id="chart_div"></div>
-<div id="chart2_div"></div>
-<div id="chartContainer"></div>
+
+
+
 
 
 @section scripts{
@@ -179,6 +217,10 @@
                 title: {
                     text: "Zscore分析"
                 },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right 
+                    verticalAlign: "top",  // top, center, bottom
+                },
                 subtitles: [
                     {
                         text: "3家公司依年度分析"
@@ -192,17 +234,50 @@
                 },
                 data: [
                     {
-                        type: "line",
+                        type: "spline",
+                        name: "l1",
+                        showInLegend: true,
                         xValueFormatString: "Year ####",
                         dataPoints: [
                             { x: 2012, y: 1 },
                             { x: 2013, y: 1.5 },
                             { x: 2014, y: 2 },
                             { x: 2015, y: 2.5 },
-                            { x: 2016, y: 3 },
-                        ],
+                            { x: 2016, y: 3 }
+                        ]
+                    },{
+                        type: "spline",
+                        name: "l2",
+                        showInLegend: true,
+                        xValueFormatString: "Year ####",
+                        dataPoints: [
+                            { x: 2012, y: 0.7 },
+                            { x: 2013, y: 1.2 },
+                            { x: 2014, y: 1 },
+                            { x: 2015, y: 1.8 },
+                            { x: 2016, y: 1.1 }
+                        ]
                     }
-                ]
+                    @{ 
+                        foreach (var item in Model)
+                        {
+                            @:,{type: "spline",
+                            @:xValueFormatString: "@item.stockId Year ####",
+                            @:name: "@item.stockId",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int i = 0; i < item.CFA_Information.Count; i++)
+                            {
+                                int j = 2008 + i;
+                                @:{ x: @j, y:@item.CFA_Information[i].ZValue },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
             });
             chart.render();
         };
