@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using CompanyFinancialAnalysis.Models;
 using CompanyFinancialAnalysis.ViewModel;
+using YahooFinanceApi;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CompanyFinancialAnalysis.Controllers
 {
@@ -13,9 +16,20 @@ namespace CompanyFinancialAnalysis.Controllers
         OrderLibrary order = new OrderLibrary();
 
         // GET: Companyfinancial
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var result= await GetHis();
+            var last = result.Last();
+
             return View();
+        }
+
+        public async Task<IList<Candle>> GetHis()
+        {
+
+            IList<Candle> result = await Yahoo.GetHistoricalAsync("6166.TW", new DateTime(2017, 11, 6),
+                                        new DateTime(2017, 11, 6), Period.Daily);
+            return result;
         }
 
         [HttpPost]

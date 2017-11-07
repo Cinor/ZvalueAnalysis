@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using YahooFinanceApi;
 
 namespace CompanyFinancialAnalysis.Models
 {
@@ -14,37 +15,11 @@ namespace CompanyFinancialAnalysis.Models
     {
         public void Main(string stockId)
         {
-
             try
             {
 
                 while (true)
                 {
-                    /*
-                    Console.WriteLine("輸入股票代號及季別:XXXXyyyyQX");
-
-                    string input = Console.ReadLine();
-
-                    var stockId = input.Substring(0, 4);
-
-                    var year = input.Substring(4).Substring(0, 4);
-
-                    var season = input.Substring(4).Substring(4);
-
-                    if (input == "")
-                    {
-                        break;
-                    }
-                    else if(Convert.ToInt32(year) >= 2013)
-                    {
-                        GetCompanyFinanceStat(input.Substring(0, 4), input.Substring(4));
-                    }
-                    else if(Convert.ToInt32(year) < 2013)
-                    {
-                        GetCompanyFinanceStatBeforeIfrs(input.Substring(0, 4), input.Substring(4));
-                    }
-                    */
-
                     Console.WriteLine("輸入股票代號");
 
                     //var stockId = Console.ReadLine();
@@ -52,6 +27,8 @@ namespace CompanyFinancialAnalysis.Models
                     if (CheckValidStockId(stockId))
                     {
                         ShowCompLstZValue(GetCompanyTenStatDataLst(stockId));
+
+                        //Console.WriteLine();
                     }
                     else
                     {
@@ -60,15 +37,13 @@ namespace CompanyFinancialAnalysis.Models
                             break;
                         }
 
-                        Console.WriteLine();
+                        //Console.WriteLine();
 
                         Console.WriteLine("請輸入正確的股票代號");
                     }
 
-
+                    Console.Read();
                 }
-
-                Console.Read();
             }
             catch (Exception)
             {
@@ -82,7 +57,7 @@ namespace CompanyFinancialAnalysis.Models
         /// </summary>
         /// <param name="stockId">股票代號(Ex:6616)</param>
         /// <param name="date">年季別(Ex:2017Q4)</param>
-        public Company GetCompanyFinanceStatBeforeIfrs(string stockId, string date)
+        private static Company GetCompanyFinanceStatBeforeIfrs(string stockId, string date)
         {
             try
             {
@@ -146,6 +121,8 @@ namespace CompanyFinancialAnalysis.Models
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -154,49 +131,57 @@ namespace CompanyFinancialAnalysis.Models
 
                 company.EBIT = StringToInt(ISData["營業收入"]) - StringToInt(ISData["營業成本"]) - StringToInt(ISData["營業費用"]);
 
-                //有些是 資產總額 or 資產總計 (簡寫)
-                company.TotalAsset = !BSData.ContainsKey("資產總計") ? company.TotalAsset = StringToInt(BSData["資產總額"]) : company.TotalAsset = StringToInt(BSData["資產總計"]);
-
-                //有些是 負債總額 or 負債總計 (簡寫)
-                company.TotalLiability = !BSData.ContainsKey("負債總計") ? company.TotalAsset = StringToInt(BSData["負債總額"]) : company.TotalAsset = StringToInt(BSData["負債總計"]);
-
                 //有些是 資產總額 or 資產總計
                 //company.TotalAsset = StringToInt(BSData["資產總計"]);
-                //if (BSData.ContainsKey("資產總額"))
-                //{
-                //    company.TotalAsset = StringToInt(BSData["資產總額"]);
-                //}
-                //else if (BSData.ContainsKey("資產總計"))
-                //{
-                //    company.TotalAsset = StringToInt(BSData["資產總計"]);
-                //}
-                //else
-                //{
-                //    company.TotalAsset = StringToInt("0");
-                //}
+                if (BSData.ContainsKey("資產總額"))
+                {
+                    company.TotalAsset = StringToInt(BSData["資產總額"]);
+                }
+                else if (BSData.ContainsKey("資產總計"))
+                {
+                    company.TotalAsset = StringToInt(BSData["資產總計"]);
+                }
+                else
+                {
+                    company.TotalAsset = StringToInt("0");
+                }
 
                 //有些是 負債總額 or 負債總計
                 //company.TotalLiability = StringToInt(BSData["負債總計"]);
-                //if (BSData.ContainsKey("負債總額"))
-                //{
-                //    company.TotalLiability = StringToInt(BSData["負債總額"]);
-                //}
-                //else if (BSData.ContainsKey("負債總計"))
-                //{
-                //    company.TotalLiability = StringToInt(BSData["負債總計"]);
-                //}
-                //else
-                //{
-                //    company.TotalLiability = StringToInt("0");
-                //}
+                if (BSData.ContainsKey("負債總額"))
+                {
+                    company.TotalLiability = StringToInt(BSData["負債總額"]);
+                }
+                else if (BSData.ContainsKey("負債總計"))
+                {
+                    company.TotalLiability = StringToInt(BSData["負債總計"]);
+                }
+                else
+                {
+                    company.TotalLiability = StringToInt("0");
+                }
+
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
+                }
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -209,7 +194,7 @@ namespace CompanyFinancialAnalysis.Models
             }
         }
 
-        public WebRequest CreateWebRequest()
+        internal static WebRequest CreateWebRequest()
         {
             WebRequest myWebRequest = WebRequest.Create("http://mops.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2349&SYEAR=2016&SSEASON=4&REPORT_ID=C");
             //string[] strByPass = new string[] { "192.1.1.1", "192.2.2.2" };
@@ -221,54 +206,92 @@ namespace CompanyFinancialAnalysis.Models
         }
 
         /// <summary>
-        /// 季的股價資訊
+        /// 季的股價資訊 從證交所網站
         /// </summary>
         /// <param name="stockId">股票代號</param>
         /// <param name="date">年季別yyyyQx(x:1~4)</param>
         /// <returns></returns>
-        public string GetStockPrice(string stockId, string date)
+        internal static string GetStockPrice(string stockId, string date)
         {
-            //try
-            //{
-            //    using (WebClient wc = new WebClient())
-            //    {
-            //        //不要在短時間請求網頁
-            //        Thread.Sleep(1);
+            try
+            {
+                using (MyWebClient wc = new MyWebClient())
+                {
+                    //不要在短時間請求網頁
+                    Thread.Sleep(1);
 
-            //        string url = "http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv";
+                    string url = "http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=.csv";
 
-            //        url += "&date=" + date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4));
+                    url += "&date=" + date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4));
 
-            //        url += "&stockNo=" + stockId.ToString();
+                    url += "&stockNo=" + stockId.ToString();
 
-            //        wc.Encoding = Encoding.UTF8;
+                    wc.Encoding = Encoding.UTF8;
 
-            //        var jsonStr = wc.DownloadString(url);
+                    var jsonStr = wc.DownloadString(url);
 
-            //        JObject stockDataO = JObject.Parse(jsonStr);
+                    if (jsonStr == "")
+                    {
+                        //沒有連到網頁
+                        return "0";
+                    }
 
-            //        //沒有撈到資料(網站更新時會沒有資料)
-            //        if (stockDataO["stat"].ToString() != "OK")
-            //        {
-            //            return "0";
-            //        }
+                    JObject stockDataO = JObject.Parse(jsonStr);
 
-            //        return stockDataO["data"].Last()[6].ToString();
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    return "0";
+                    //沒有撈到資料(網站更新時會沒有資料)
+                    if (stockDataO["stat"].ToString() != "OK")
+                    {
+                        return "0";
+                    }
 
-            //    throw;
-            //}
+                    return stockDataO["data"].Last()[6].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
+                return "0";
 
-            return "10";
-
+                throw;
+            }
         }
 
-        public Company GetCompanyFinanceStat(string stockId, string date)
+        internal static string GetStockPriceFromYah(string stockId, string date)
+        {
+            try
+            {
+                var ticker = stockId + ".TW";
+
+                var start_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), 1);
+
+                var str_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4)).Substring(0,2) + 1.ToString()).ToDatetime();
+
+                var end_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(2)));
+
+                var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
+
+                var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
+
+                var last = results.Result.Last();
+
+                if (last != null)
+                {
+                    return last.Close.ToString();
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        internal static Company GetCompanyFinanceStat(string stockId, string date)
 
         {
             try
@@ -339,6 +362,8 @@ namespace CompanyFinancialAnalysis.Models
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -347,49 +372,57 @@ namespace CompanyFinancialAnalysis.Models
 
                 company.EBIT = StringToInt(ISData["營業收入"]) - StringToInt(ISData["營業成本"]) - StringToInt(ISData["營業費用"]);
 
-                //有些是 資產總額 or 資產總計 (簡寫)
-                company.TotalAsset = !BSData.ContainsKey("資產總計") ? company.TotalAsset = StringToInt(BSData["資產總額"]) : company.TotalAsset = StringToInt(BSData["資產總計"]);
-
-                //有些是 負債總額 or 負債總計 (簡寫)
-                company.TotalLiability = !BSData.ContainsKey("負債總計") ? company.TotalAsset = StringToInt(BSData["負債總額"]) : company.TotalAsset = StringToInt(BSData["負債總計"]);
-
                 //有些是 資產總額 or 資產總計
                 //company.TotalAsset = StringToInt(BSData["資產總計"]);
-                //if (BSData.ContainsKey("資產總額"))
-                //{
-                //    company.TotalAsset = StringToInt(BSData["資產總額"]);
-                //}
-                //else if (BSData.ContainsKey("資產總計"))
-                //{
-                //    company.TotalAsset = StringToInt(BSData["資產總計"]);
-                //}
-                //else
-                //{
-                //    company.TotalAsset = StringToInt("0");
-                //}
+                if (BSData.ContainsKey("資產總額"))
+                {
+                    company.TotalAsset = StringToInt(BSData["資產總額"]);
+                }
+                else if (BSData.ContainsKey("資產總計"))
+                {
+                    company.TotalAsset = StringToInt(BSData["資產總計"]);
+                }
+                else
+                {
+                    company.TotalAsset = StringToInt("0");
+                }
 
                 //有些是 負債總額 or 負債總計
                 //company.TotalLiability = StringToInt(BSData["負債總計"]);
-                //if (BSData.ContainsKey("負債總額"))
-                //{
-                //    company.TotalLiability = StringToInt(BSData["負債總額"]);
-                //}
-                //else if (BSData.ContainsKey("負債總計"))
-                //{
-                //    company.TotalLiability = StringToInt(BSData["負債總計"]);
-                //}
-                //else
-                //{
-                //    company.TotalLiability = StringToInt("0");
-                //}
+                if (BSData.ContainsKey("負債總額"))
+                {
+                    company.TotalLiability = StringToInt(BSData["負債總額"]);
+                }
+                else if (BSData.ContainsKey("負債總計"))
+                {
+                    company.TotalLiability = StringToInt(BSData["負債總計"]);
+                }
+                else
+                {
+                    company.TotalLiability = StringToInt("0");
+                }
+
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
+                }
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -415,7 +448,7 @@ namespace CompanyFinancialAnalysis.Models
         /// <param name="ta">總資產</param>
         /// <param name="tl">總負債</param>
         /// <returns></returns>
-        public double GetZValue(double wc, double re, double ebit, double mv, double gs, double ta, double tl)
+        internal static double GetZValue(double wc, double re, double ebit, double mv, double gs, double ta, double tl)
         {
             try
             {
@@ -433,20 +466,20 @@ namespace CompanyFinancialAnalysis.Models
         /// </summary>
         /// <param name="season"></param>
         /// <returns></returns>
-        public string ConvertSeasonToDate(string season)
+        internal static string ConvertSeasonToDate(string season)
         {
             try
             {
                 switch (season)
                 {
                     case "Q1":
-                        return "0301";
+                        return "0331";
                     case "Q2":
-                        return "0601";
+                        return "0630";
                     case "Q3":
-                        return "0901";
+                        return "0930";
                     case "Q4":
-                        return "1201";
+                        return "1231";
                     default:
                         return "not valid season";
                 }
@@ -463,11 +496,11 @@ namespace CompanyFinancialAnalysis.Models
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        public int StringToInt(string num)
+        internal static int StringToInt(string num)
         {
             try
             {
-                if (num == "")
+                if (num == "" && num == "-")
                 {
                     return 0;
                 }
@@ -534,7 +567,7 @@ namespace CompanyFinancialAnalysis.Models
         /// 回傳最新的財報資料年季別
         /// </summary>
         /// <returns>Ex:2017Q4</returns>
-        public string LastStatDate()
+        internal static string LastStatDate()
         {
             try
             {
@@ -580,7 +613,7 @@ namespace CompanyFinancialAnalysis.Models
         /// </summary>
         /// <param name="stockId"></param>
         /// <returns></returns>
-        public bool CheckValidStockId(string stockId)
+        internal static bool CheckValidStockId(string stockId)
         {
             try
             {
@@ -643,14 +676,84 @@ namespace CompanyFinancialAnalysis.Models
         }
 
         /// <summary>
-        /// 顯示zvalue
+        /// 回傳股票的公司名稱
         /// </summary>
-        /// <param name="cmpLst"></param>
-        public void ShowCompLstZValue(List<Company> cmpLst)
+        /// <param name="stockId"></param>
+        /// <returns></returns>
+        internal static string GetStockName(string stockId)
         {
             try
             {
-                Console.WriteLine("股票代號" + cmpLst.First().Ticker);
+                if (stockId == "")
+                {
+                    return "請輸入正確股票代號";
+                }
+
+                string url = "http://isin.twse.com.tw/isin/C_public.jsp?strMode=2";
+
+                WebClient webC = new WebClient();
+
+                HtmlWeb web = new HtmlWeb();
+
+                HtmlDocument doc = new HtmlDocument();
+
+                //doc = web.Load(url);
+
+                Thread.Sleep(1);
+
+                doc.Load(webC.OpenRead(url), Encoding.GetEncoding("big5"));
+                //doc.Load(web.OpenRead(url));
+
+                //WebBrowser htmlbrowser = new WebBrowser();
+
+                //var node = doc.DocumentNode.SelectNodes("//tbody/tr[position()>2]/td[1]");
+                //doc.ParsedText = EncodToBig5(doc.ParsedText);
+
+                var nodes = doc.DocumentNode.SelectNodes("//tr[position()>2]/td[1]");
+
+                if (nodes == null)
+                {
+                    return "沒有資料";
+                }
+
+                var stockCnt = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Count();
+
+                //var ticker = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                //                                    .Where(s => s.InnerText.Split('　').First() == stockId)
+                //                                    .First();
+
+                var stockZhName = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Select(s => s.InnerText.Split('　').Last());
+
+                if (stockCnt != 0)
+                {
+                    return stockZhName.First();
+                }
+                else
+                {
+                    return "沒有資料";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 顯示zvalue
+        /// </summary>
+        /// <param name="cmpLst"></param>
+        internal static void ShowCompLstZValue(List<Company> cmpLst)
+        {
+            try
+            {
+
+                Console.WriteLine(string.Format("公司名稱:{0} 股票代號:{1}",cmpLst.First().Name, cmpLst.First().Ticker));
 
                 foreach (var c in cmpLst)
                 {
@@ -662,8 +765,6 @@ namespace CompanyFinancialAnalysis.Models
                 {
                     Console.Write(string.Format("{0} ", Math.Round(c.ZValue, 4)));
                 }
-
-
             }
             catch (Exception)
             {
