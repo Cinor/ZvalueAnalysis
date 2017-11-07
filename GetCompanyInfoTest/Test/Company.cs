@@ -10,6 +10,11 @@ namespace Test
     {
         public string Ticker { get; set; }
 
+        /// <summary>
+        /// 公司名稱
+        /// </summary>
+        public string Name { get; set; }
+
         //季別
         public string Date { get; set; }
 
@@ -42,5 +47,10 @@ namespace Test
 
         //z value
         public double ZValue { get; set; }
+
+        /// <summary>
+        /// 股東權益
+        /// </summary>
+        public double Equity { get; set; }
     }
 }

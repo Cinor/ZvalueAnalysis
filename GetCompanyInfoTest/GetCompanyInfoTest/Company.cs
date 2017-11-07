@@ -6,39 +6,74 @@ namespace GetCompanyInfoTest
 {
     class Company
     {
+        /// <summary>
+        /// 股票代號
+        /// </summary>
         public string Ticker { get; set; }
 
-        //季別
+        /// <summary>
+        /// 公司名稱
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 季別(Ex:2017Q2)
+        /// </summary>
         public string Date { get; set; }
 
-        //營運資金
+        /// <summary>
+        /// 營運資金
+        /// </summary>
         public double WorkingCapital { get; set; }
 
-        //保留盈餘
+        /// <summary>
+        /// 保留盈餘
+        /// </summary>
         public double RetainedEarning { get; set; }
 
-        //營業利益
+        /// <summary>
+        /// 營業利益
+        /// </summary>
         public double EBIT { get; set; }
 
-        //總資產
+        /// <summary>
+        /// 總資產
+        /// </summary>
         public double TotalAsset { get; set; }
-        
-        //總負債
+
+        /// <summary>
+        /// 總負債
+        /// </summary>
         public double TotalLiability { get; set; }
 
-        //營業收入
+        /// <summary>
+        /// 營業收入
+        /// </summary>
         public double GrossSales { get; set; }
-        
-        //總市值
+
+        /// <summary>
+        /// 總市值
+        /// </summary>
         public double MarketValue { get; set; }
 
-        //股本
+        /// <summary>
+        /// 股本
+        /// </summary>
         public int CompanyStock { get; set; }
 
-        //股價
+        /// <summary>
+        /// 股價
+        /// </summary>
         public double StockPrice { get; set; }
 
-        //z value
+        /// <summary>
+        /// z value
+        /// </summary>
         public double ZValue { get; set; }
+
+        /// <summary>
+        /// 股東權益
+        /// </summary>
+        public double Equity { get; set; }
     }
 }

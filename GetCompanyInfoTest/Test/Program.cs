@@ -121,6 +121,8 @@ namespace Test
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -157,6 +159,20 @@ namespace Test
                 else
                 {
                     company.TotalLiability = StringToInt("0");
+                }
+
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
                 }
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
@@ -346,6 +362,8 @@ namespace Test
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -382,6 +400,20 @@ namespace Test
                 else
                 {
                     company.TotalLiability = StringToInt("0");
+                }
+
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
                 }
 
                 company.GrossSales = StringToInt(ISData["營業收入"]);
@@ -644,6 +676,75 @@ namespace Test
         }
 
         /// <summary>
+        /// 回傳股票的公司名稱
+        /// </summary>
+        /// <param name="stockId"></param>
+        /// <returns></returns>
+        internal static string GetStockName(string stockId)
+        {
+            try
+            {
+                if (stockId == "")
+                {
+                    return "請輸入正確股票代號";
+                }
+
+                string url = "http://isin.twse.com.tw/isin/C_public.jsp?strMode=2";
+
+                WebClient webC = new WebClient();
+
+                HtmlWeb web = new HtmlWeb();
+
+                HtmlDocument doc = new HtmlDocument();
+
+                //doc = web.Load(url);
+
+                Thread.Sleep(1);
+
+                doc.Load(webC.OpenRead(url), Encoding.GetEncoding("big5"));
+                //doc.Load(web.OpenRead(url));
+
+                //WebBrowser htmlbrowser = new WebBrowser();
+
+                //var node = doc.DocumentNode.SelectNodes("//tbody/tr[position()>2]/td[1]");
+                //doc.ParsedText = EncodToBig5(doc.ParsedText);
+
+                var nodes = doc.DocumentNode.SelectNodes("//tr[position()>2]/td[1]");
+
+                if (nodes == null)
+                {
+                    return "沒有資料";
+                }
+
+                var stockCnt = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Count();
+
+                //var ticker = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                //                                    .Where(s => s.InnerText.Split('　').First() == stockId)
+                //                                    .First();
+
+                var stockZhName = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Select(s => s.InnerText.Split('　').Last());
+
+                if (stockCnt != 0)
+                {
+                    return stockZhName.First();
+                }
+                else
+                {
+                    return "沒有資料";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 顯示zvalue
         /// </summary>
         /// <param name="cmpLst"></param>
@@ -651,7 +752,8 @@ namespace Test
         {
             try
             {
-                Console.WriteLine("股票代號" + cmpLst.First().Ticker);
+
+                Console.WriteLine(string.Format("公司名稱:{0} 股票代號:{1}",cmpLst.First().Name, cmpLst.First().Ticker));
 
                 foreach (var c in cmpLst)
                 {
