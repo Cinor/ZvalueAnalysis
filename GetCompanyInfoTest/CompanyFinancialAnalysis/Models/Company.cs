@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace GetCompanyInfoTest
+namespace CompanyFinancialAnalysis.Models
 {
-    class Company
+    public class Company
     {
+        public string Ticker { get; set; }
+
         //季別
         public string Date { get; set; }
 
@@ -20,13 +24,13 @@ namespace GetCompanyInfoTest
 
         //總資產
         public double TotalAsset { get; set; }
-        
+
         //總負債
         public double TotalLiability { get; set; }
 
         //營業收入
         public double GrossSales { get; set; }
-        
+
         //總市值
         public double MarketValue { get; set; }
 
