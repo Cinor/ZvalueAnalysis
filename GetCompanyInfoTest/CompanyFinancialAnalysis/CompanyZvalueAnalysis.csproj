@@ -52,6 +52,12 @@
     <Reference Include="CsvHelper, Version=4.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.4.0.2\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Flurl, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.2.5.0\lib\net40\Flurl.dll</HintPath>
     </Reference>
@@ -98,6 +104,8 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -164,7 +172,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BalanceSheet.cs">
+      <DependentUpon>CFDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CFDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CFDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CFDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CFDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\IncomeStatement.cs">
+      <DependentUpon>CFDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyExtension.cs" />
     <Compile Include="Models\MyWebClient.cs">
       <SubType>Component</SubType>
@@ -175,6 +204,10 @@
     <Compile Include="ViewModel\CompanyFinancial.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CorporateFinanceDB.mdf" />
+    <Content Include="App_Data\CorporateFinanceDB_log.ldf">
+      <DependentUpon>CorporateFinanceDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -194,7 +227,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\CFDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CFDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CFDB.edmx.diagram">
+      <DependentUpon>CFDB.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Models\CFDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CFDB.Context.cs</LastGenOutput>
+      <DependentUpon>CFDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\CFDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CFDB.edmx</DependentUpon>
+      <LastGenOutput>CFDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -229,7 +279,7 @@
     <Content Include="Views\CFA\Analysis.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
