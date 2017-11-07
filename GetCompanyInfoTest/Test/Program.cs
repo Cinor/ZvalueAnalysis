@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using YahooFinanceApi;
 
 namespace Test
 {
@@ -19,31 +20,6 @@ namespace Test
 
                 while (true)
                 {
-                    /*
-                    Console.WriteLine("輸入股票代號及季別:XXXXyyyyQX");
-
-                    string input = Console.ReadLine();
-
-                    var stockId = input.Substring(0, 4);
-
-                    var year = input.Substring(4).Substring(0, 4);
-
-                    var season = input.Substring(4).Substring(4);
-
-                    if (input == "")
-                    {
-                        break;
-                    }
-                    else if(Convert.ToInt32(year) >= 2013)
-                    {
-                        GetCompanyFinanceStat(input.Substring(0, 4), input.Substring(4));
-                    }
-                    else if(Convert.ToInt32(year) < 2013)
-                    {
-                        GetCompanyFinanceStatBeforeIfrs(input.Substring(0, 4), input.Substring(4));
-                    }
-                    */
-
                     Console.WriteLine("輸入股票代號");
 
                     var stockId = Console.ReadLine();
@@ -51,6 +27,8 @@ namespace Test
                     if (CheckValidStockId(stockId))
                     {
                         ShowCompLstZValue(GetCompanyTenStatDataLst(stockId));
+
+                        //Console.WriteLine();
                     }
                     else
                     {
@@ -59,15 +37,13 @@ namespace Test
                             break;
                         }
 
-                        Console.WriteLine();
+                        //Console.WriteLine();
 
                         Console.WriteLine("請輸入正確的股票代號");
                     }
 
-
+                    Console.Read();
                 }
-
-                Console.Read();
             }
             catch (Exception)
             {
@@ -145,6 +121,8 @@ namespace Test
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -183,13 +161,27 @@ namespace Test
                     company.TotalLiability = StringToInt("0");
                 }
 
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
+                }
+
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -214,7 +206,7 @@ namespace Test
         }
 
         /// <summary>
-        /// 季的股價資訊
+        /// 季的股價資訊 從證交所網站
         /// </summary>
         /// <param name="stockId">股票代號</param>
         /// <param name="date">年季別yyyyQx(x:1~4)</param>
@@ -223,7 +215,7 @@ namespace Test
         {
             try
             {
-                using (WebClient wc = new WebClient())
+                using (MyWebClient wc = new MyWebClient())
                 {
                     //不要在短時間請求網頁
                     Thread.Sleep(1);
@@ -238,6 +230,12 @@ namespace Test
 
                     var jsonStr = wc.DownloadString(url);
 
+                    if (jsonStr == "")
+                    {
+                        //沒有連到網頁
+                        return "0";
+                    }
+
                     JObject stockDataO = JObject.Parse(jsonStr);
 
                     //沒有撈到資料(網站更新時會沒有資料)
@@ -249,9 +247,45 @@ namespace Test
                     return stockDataO["data"].Last()[6].ToString();
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return "0";
+
+                throw;
+            }
+        }
+
+        internal static string GetStockPriceFromYah(string stockId, string date)
+        {
+            try
+            {
+                var ticker = stockId + ".TW";
+
+                var start_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), 1);
+
+                var str_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4)).Substring(0,2) + 1.ToString()).ToDatetime();
+
+                var end_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(2)));
+
+                var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
+
+                var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
+
+                var last = results.Result.Last();
+
+                if (last != null)
+                {
+                    return last.Close.ToString();
+                }
+                else
+                {
+                    return "0";
+                }
+            }
             catch (Exception)
             {
-                return "0";
 
                 throw;
             }
@@ -328,6 +362,8 @@ namespace Test
 
                 company.Ticker = stockId;
 
+                company.Name = GetStockName(stockId);
+
                 company.Date = date;
 
                 company.WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]);
@@ -366,13 +402,27 @@ namespace Test
                     company.TotalLiability = StringToInt("0");
                 }
 
+                //股東權益
+                if (BSData.ContainsKey("權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["權益總計"]);
+                }
+                else if (BSData.ContainsKey("股東權益總計"))
+                {
+                    company.Equity = StringToInt(BSData["股東權益總計"]);
+                }
+                else
+                {
+                    company.Equity = StringToInt("0");
+                }
+
                 company.GrossSales = StringToInt(ISData["營業收入"]);
 
-                company.MarketValue = StringToInt(BSData["股本"]) / 10 * Convert.ToDouble(GetStockPrice(stockId, date));
+                company.StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date));
+
+                company.MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice;
 
                 company.CompanyStock = StringToInt(BSData["股本"]);
-
-                company.StockPrice = Convert.ToDouble(GetStockPrice(stockId, date));
 
                 company.ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability);
 
@@ -423,13 +473,13 @@ namespace Test
                 switch (season)
                 {
                     case "Q1":
-                        return "0301";
+                        return "0331";
                     case "Q2":
-                        return "0601";
+                        return "0630";
                     case "Q3":
-                        return "0901";
+                        return "0930";
                     case "Q4":
-                        return "1201";
+                        return "1231";
                     default:
                         return "not valid season";
                 }
@@ -450,7 +500,7 @@ namespace Test
         {
             try
             {
-                if (num == "")
+                if (num == "" && num == "-")
                 {
                     return 0;
                 }
@@ -626,6 +676,75 @@ namespace Test
         }
 
         /// <summary>
+        /// 回傳股票的公司名稱
+        /// </summary>
+        /// <param name="stockId"></param>
+        /// <returns></returns>
+        internal static string GetStockName(string stockId)
+        {
+            try
+            {
+                if (stockId == "")
+                {
+                    return "請輸入正確股票代號";
+                }
+
+                string url = "http://isin.twse.com.tw/isin/C_public.jsp?strMode=2";
+
+                WebClient webC = new WebClient();
+
+                HtmlWeb web = new HtmlWeb();
+
+                HtmlDocument doc = new HtmlDocument();
+
+                //doc = web.Load(url);
+
+                Thread.Sleep(1);
+
+                doc.Load(webC.OpenRead(url), Encoding.GetEncoding("big5"));
+                //doc.Load(web.OpenRead(url));
+
+                //WebBrowser htmlbrowser = new WebBrowser();
+
+                //var node = doc.DocumentNode.SelectNodes("//tbody/tr[position()>2]/td[1]");
+                //doc.ParsedText = EncodToBig5(doc.ParsedText);
+
+                var nodes = doc.DocumentNode.SelectNodes("//tr[position()>2]/td[1]");
+
+                if (nodes == null)
+                {
+                    return "沒有資料";
+                }
+
+                var stockCnt = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Count();
+
+                //var ticker = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                //                                    .Where(s => s.InnerText.Split('　').First() == stockId)
+                //                                    .First();
+
+                var stockZhName = nodes.ToList().Where(s => s.InnerText.Split('　').First().Length == 4)
+                                            .Where(s => s.InnerText.Split('　').First() == stockId)
+                                            .Select(s => s.InnerText.Split('　').Last());
+
+                if (stockCnt != 0)
+                {
+                    return stockZhName.First();
+                }
+                else
+                {
+                    return "沒有資料";
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
         /// 顯示zvalue
         /// </summary>
         /// <param name="cmpLst"></param>
@@ -633,7 +752,8 @@ namespace Test
         {
             try
             {
-                Console.WriteLine("股票代號" + cmpLst.First().Ticker);
+
+                Console.WriteLine(string.Format("公司名稱:{0} 股票代號:{1}",cmpLst.First().Name, cmpLst.First().Ticker));
 
                 foreach (var c in cmpLst)
                 {
