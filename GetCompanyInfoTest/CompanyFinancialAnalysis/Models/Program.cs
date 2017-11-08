@@ -119,42 +119,7 @@ namespace CompanyFinancialAnalysis.Models
                 }
 
                 //var aaa = Convert.ToInt32(BSData["流動資產"]);
-                CFDBServices CFDB = new CFDBServices();
-
-                var CTitem = CFDB.GetCompanyTableBystockId(stockId,date);
-
-                foreach (var item in CTitem)
-                {
-                    company.Ticker = item.Ticker;
-
-                    company.Name = item.Name;
-
-                    company.Date = item.Date;
-
-                    company.WorkingCapital = item.WorkingCapital.GetValueOrDefault();
-
-                    company.RetainedEarning = item.RetainedEarning.GetValueOrDefault();
-
-                    company.EBIT = item.EBIT.GetValueOrDefault();
-
-                    company.TotalAsset = item.TotalAsset.GetValueOrDefault();
-
-                    company.TotalLiability = item.TotalLiability.GetValueOrDefault();
-
-                    company.Equity = item.Equity.GetValueOrDefault();
-
-                    company.GrossSales = item.GrossSales.GetValueOrDefault();
-
-                    company.StockPrice = item.StockPrice.GetValueOrDefault();
-
-                    company.MarketValue = item.MarketValue.GetValueOrDefault();
-
-                    company.CompanyStock = Convert.ToInt32(item.CompanyStock);
-
-                    company.ZValue = Convert.ToDouble(item.ZValue);
-
-                }
-
+                
                 company.Ticker = stockId;
 
                 company.Name = GetStockName(stockId);
