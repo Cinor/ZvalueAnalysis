@@ -42,7 +42,7 @@ namespace CompanyFinancialAnalysis.Services
         }
 
         /// <summary>
-        /// 
+        /// 抓取CompanyTable
         /// </summary>
         /// <param name="stockId"></param>
         /// <param name="data"></param>
@@ -57,7 +57,13 @@ namespace CompanyFinancialAnalysis.Services
         }
 
 
-        public void Get(string stockId, string date)
+        /// <summary>
+        /// 測試從CompanyDataTable取值
+        /// </summary>
+        /// <param name="stockId"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public Company GetCompanyTable(string stockId, string date)
         {
             Company company = new Company();
 
@@ -96,7 +102,55 @@ namespace CompanyFinancialAnalysis.Services
                 company.ZValue = Convert.ToDouble(item.ZValue);
 
             }
+
+            return company;
+
         }
+
+        //public Company GetCompanyByTwoTable(string stockId, string data)
+        //{
+        //    CFDBServices CFDB = new CFDBServices();
+
+        //    var BSData = CFDB.GetBSTableBystockId(stockId, data);
+
+        //    var ISData = CFDB.GetISTableBystockId(stockId, data).ToList();
+
+
+
+        //    var result = new Company
+        //    {
+        //        Ticker = BSData.,
+
+        //        Name = GetStockName(stockId),
+
+        //        Date = date,
+
+        //        WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]),
+
+        //        RetainedEarning = StringToInt(BSData["保留盈餘"]),
+
+        //        EBIT = StringToInt(ISData["營業收入"]) - StringToInt(ISData["營業成本"]) - StringToInt(ISData["營業費用"]),
+
+        //        TotalAsset = StringToInt(BSData["資產總額"]),
+
+        //        TotalLiability = StringToInt("0"),
+
+        //        Equity = StringToInt("0"),
+
+        //        GrossSales = StringToInt(ISData["營業收入"]),
+
+        //        StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date)),
+
+        //        MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice,
+
+        //        CompanyStock = StringToInt(BSData["股本"]),
+
+        //        ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability)
+
+        //    };
+
+        //    return result;
+        //}
 
 
     }
