@@ -11,20 +11,20 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ticker" Type="nvarchar" MaxLength="50" />
-          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
           <Property Name="CurrentAssets" Type="float" />
-          <Property Name="FundsAndInvestments" Type="float" />
+          <Property Name="NonCurrentAsset" Type="float" />
           <Property Name="FixedAssets" Type="float" />
           <Property Name="IntangibleAssets" Type="float" />
           <Property Name="OtherAssets" Type="float" />
           <Property Name="TotalAssets" Type="float" />
           <Property Name="Currentliabilities" Type="float" />
-          <Property Name="Long-Termliabilities" Type="float" />
+          <Property Name="LongTermliabilities" Type="float" />
           <Property Name="VariousPreparations" Type="float" />
           <Property Name="Otherliabilities" Type="float" />
           <Property Name="Totalliabilities" Type="float" />
           <Property Name="CompanyStock" Type="float" />
-          <Property Name="AdditionalPaid-InCapital" Type="float" />
+          <Property Name="AdditionalPaidInCapital" Type="float" />
           <Property Name="RetainedEarnings " Type="float" />
           <Property Name="Stockholders'EquitiesAdjustments" Type="float" />
           <Property Name="UnderTheCommonControlOfTheFormerHandRights" Type="float" />
@@ -32,6 +32,7 @@
           <Property Name="TotalEquity" Type="float" />
           <Property Name="NumberOfShareCapitalAwaitingRetirement" Type="float" />
           <Property Name="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" Type="float" />
+          <Property Name="BeforeTheMmergerCommonNonControllingInterestsAndlosses" Type="float" />
           <Property Name="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" Type="float" />
           <Property Name="BookValuePerShare" Type="float" />
         </EntityType>
@@ -40,9 +41,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Ticker" Type="float" />
-          <Property Name="Name" Type="float" />
-          <Property Name="Date" Type="float" />
+          <Property Name="Ticker" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
           <Property Name="WorkingCapital" Type="float" />
           <Property Name="RetainedEarning" Type="float" />
           <Property Name="EBIT" Type="float" />
@@ -61,16 +62,16 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ticker" Type="nvarchar" MaxLength="50" />
-          <Property Name="Year" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
           <Property Name="OperatingRevenue" Type="float" />
           <Property Name="CostOfGoodsSold" Type="float" />
           <Property Name="Grossprofit" Type="float" />
-          <Property Name="RealizedGainFromInter-affiliateAccounts" Type="float" />
-          <Property Name="UnrealizedGainFromInter-affiliateAccounts" Type="float" />
+          <Property Name="RealizedGainFromInterAffiliateAccounts" Type="float" />
+          <Property Name="UnrealizedGainFromInterAffiliateAccounts" Type="float" />
           <Property Name="OperatingExpenses" Type="float" />
           <Property Name="OperatingIncome" Type="float" />
-          <Property Name="Non-OperatingIncome" Type="float" />
-          <Property Name="Non-OperatingExpenses" Type="float" />
+          <Property Name="NonOperatingIncome" Type="float" />
+          <Property Name="NonOperatingExpenses" Type="float" />
           <Property Name="IncomeBeforeTaxFromContinuingOperations" Type="float" />
           <Property Name="IncomeTaxExpense" Type="float" />
           <Property Name="IncomeFromContinuingOperations" Type="float" />
@@ -90,18 +91,49 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CorporateFinanceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CorporateFinanceDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CompanyDataTable" EntityType="CorporateFinanceDBModel.CompanyDataTable" />
           <EntitySet Name="BalanceSheet" EntityType="CorporateFinanceDBModel.BalanceSheet" />
+          <EntitySet Name="CompanyDataTable" EntityType="CorporateFinanceDBModel.CompanyDataTable" />
           <EntitySet Name="IncomeStatement" EntityType="CorporateFinanceDBModel.IncomeStatement" />
         </EntityContainer>
+        <EntityType Name="BalanceSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ticker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentAssets" Type="Double" />
+          <Property Name="NonCurrentAsset" Type="Double" />
+          <Property Name="FixedAssets" Type="Double" />
+          <Property Name="IntangibleAssets" Type="Double" />
+          <Property Name="OtherAssets" Type="Double" />
+          <Property Name="TotalAssets" Type="Double" />
+          <Property Name="Currentliabilities" Type="Double" />
+          <Property Name="LongTermliabilities" Type="Double" />
+          <Property Name="VariousPreparations" Type="Double" />
+          <Property Name="Otherliabilities" Type="Double" />
+          <Property Name="Totalliabilities" Type="Double" />
+          <Property Name="CompanyStock" Type="Double" />
+          <Property Name="AdditionalPaidInCapital" Type="Double" />
+          <Property Name="RetainedEarnings_" Type="Double" />
+          <Property Name="Stockholders_EquitiesAdjustments" Type="Double" />
+          <Property Name="UnderTheCommonControlOfTheFormerHandRights" Type="Double" />
+          <Property Name="NoncontrollingInterests" Type="Double" />
+          <Property Name="TotalEquity" Type="Double" />
+          <Property Name="NumberOfShareCapitalAwaitingRetirement" Type="Double" />
+          <Property Name="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" Type="Double" />
+          <Property Name="BeforeTheMmergerCommonNonControllingInterestsAndlosses" Type="Double" />
+          <Property Name="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" Type="Double" />
+          <Property Name="BookValuePerShare" Type="Double" />
+        </EntityType>
         <EntityType Name="CompanyDataTable">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Ticker" Type="Double" />
-          <Property Name="Name" Type="Double" />
-          <Property Name="Date" Type="Double" />
+          <Property Name="Ticker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="WorkingCapital" Type="Double" />
           <Property Name="RetainedEarning" Type="Double" />
           <Property Name="EBIT" Type="Double" />
@@ -114,52 +146,22 @@
           <Property Name="ZValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Equity" Type="Double" />
         </EntityType>
-        <EntityType Name="BalanceSheet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Ticker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CurrentAssets" Type="Double" />
-          <Property Name="FundsAndInvestments" Type="Double" />
-          <Property Name="FixedAssets" Type="Double" />
-          <Property Name="IntangibleAssets" Type="Double" />
-          <Property Name="OtherAssets" Type="Double" />
-          <Property Name="TotalAssets" Type="Double" />
-          <Property Name="Currentliabilities" Type="Double" />
-          <Property Name="Long_Termliabilities" Type="Double" />
-          <Property Name="VariousPreparations" Type="Double" />
-          <Property Name="Otherliabilities" Type="Double" />
-          <Property Name="Totalliabilities" Type="Double" />
-          <Property Name="CompanyStock" Type="Double" />
-          <Property Name="AdditionalPaid_InCapital" Type="Double" />
-          <Property Name="RetainedEarnings_" Type="Double" />
-          <Property Name="Stockholders_EquitiesAdjustments" Type="Double" />
-          <Property Name="UnderTheCommonControlOfTheFormerHandRights" Type="Double" />
-          <Property Name="NoncontrollingInterests" Type="Double" />
-          <Property Name="TotalEquity" Type="Double" />
-          <Property Name="NumberOfShareCapitalAwaitingRetirement" Type="Double" />
-          <Property Name="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" Type="Double" />
-          <Property Name="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" Type="Double" />
-          <Property Name="BookValuePerShare" Type="Double" />
-        </EntityType>
         <EntityType Name="IncomeStatement">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ticker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OperatingRevenue" Type="Double" />
           <Property Name="CostOfGoodsSold" Type="Double" />
           <Property Name="Grossprofit" Type="Double" />
-          <Property Name="RealizedGainFromInter_affiliateAccounts" Type="Double" />
-          <Property Name="UnrealizedGainFromInter_affiliateAccounts" Type="Double" />
+          <Property Name="RealizedGainFromInterAffiliateAccounts" Type="Double" />
+          <Property Name="UnrealizedGainFromInterAffiliateAccounts" Type="Double" />
           <Property Name="OperatingExpenses" Type="Double" />
           <Property Name="OperatingIncome" Type="Double" />
-          <Property Name="Non_OperatingIncome" Type="Double" />
-          <Property Name="Non_OperatingExpenses" Type="Double" />
+          <Property Name="NonOperatingIncome" Type="Double" />
+          <Property Name="NonOperatingExpenses" Type="Double" />
           <Property Name="IncomeBeforeTaxFromContinuingOperations" Type="Double" />
           <Property Name="IncomeTaxExpense" Type="Double" />
           <Property Name="IncomeFromContinuingOperations" Type="Double" />
@@ -169,12 +171,44 @@
           <Property Name="NetIncome" Type="Double" />
           <Property Name="EarningPerShare" Type="Double" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CorporateFinanceDBModelStoreContainer" CdmEntityContainer="CorporateFinanceDBEntities">
+          <EntitySetMapping Name="BalanceSheet">
+            <EntityTypeMapping TypeName="CorporateFinanceDBModel.BalanceSheet">
+              <MappingFragment StoreEntitySet="BalanceSheet">
+                <ScalarProperty Name="BookValuePerShare" ColumnName="BookValuePerShare" />
+                <ScalarProperty Name="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" ColumnName="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" />
+                <ScalarProperty Name="BeforeTheMmergerCommonNonControllingInterestsAndlosses" ColumnName="BeforeTheMmergerCommonNonControllingInterestsAndlosses" />
+                <ScalarProperty Name="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" ColumnName="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" />
+                <ScalarProperty Name="NumberOfShareCapitalAwaitingRetirement" ColumnName="NumberOfShareCapitalAwaitingRetirement" />
+                <ScalarProperty Name="TotalEquity" ColumnName="TotalEquity" />
+                <ScalarProperty Name="NoncontrollingInterests" ColumnName="NoncontrollingInterests" />
+                <ScalarProperty Name="UnderTheCommonControlOfTheFormerHandRights" ColumnName="UnderTheCommonControlOfTheFormerHandRights" />
+                <ScalarProperty Name="Stockholders_EquitiesAdjustments" ColumnName="Stockholders'EquitiesAdjustments" />
+                <ScalarProperty Name="RetainedEarnings_" ColumnName="RetainedEarnings " />
+                <ScalarProperty Name="AdditionalPaidInCapital" ColumnName="AdditionalPaidInCapital" />
+                <ScalarProperty Name="CompanyStock" ColumnName="CompanyStock" />
+                <ScalarProperty Name="Totalliabilities" ColumnName="Totalliabilities" />
+                <ScalarProperty Name="Otherliabilities" ColumnName="Otherliabilities" />
+                <ScalarProperty Name="VariousPreparations" ColumnName="VariousPreparations" />
+                <ScalarProperty Name="LongTermliabilities" ColumnName="LongTermliabilities" />
+                <ScalarProperty Name="Currentliabilities" ColumnName="Currentliabilities" />
+                <ScalarProperty Name="TotalAssets" ColumnName="TotalAssets" />
+                <ScalarProperty Name="OtherAssets" ColumnName="OtherAssets" />
+                <ScalarProperty Name="IntangibleAssets" ColumnName="IntangibleAssets" />
+                <ScalarProperty Name="FixedAssets" ColumnName="FixedAssets" />
+                <ScalarProperty Name="NonCurrentAsset" ColumnName="NonCurrentAsset" />
+                <ScalarProperty Name="CurrentAssets" ColumnName="CurrentAssets" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Ticker" ColumnName="Ticker" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CompanyDataTable">
             <EntityTypeMapping TypeName="CorporateFinanceDBModel.CompanyDataTable">
               <MappingFragment StoreEntitySet="CompanyDataTable">
@@ -196,37 +230,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BalanceSheet">
-            <EntityTypeMapping TypeName="CorporateFinanceDBModel.BalanceSheet">
-              <MappingFragment StoreEntitySet="BalanceSheet">
-                <ScalarProperty Name="BookValuePerShare" ColumnName="BookValuePerShare" />
-                <ScalarProperty Name="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" ColumnName="NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries" />
-                <ScalarProperty Name="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" ColumnName="EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare" />
-                <ScalarProperty Name="NumberOfShareCapitalAwaitingRetirement" ColumnName="NumberOfShareCapitalAwaitingRetirement" />
-                <ScalarProperty Name="TotalEquity" ColumnName="TotalEquity" />
-                <ScalarProperty Name="NoncontrollingInterests" ColumnName="NoncontrollingInterests" />
-                <ScalarProperty Name="UnderTheCommonControlOfTheFormerHandRights" ColumnName="UnderTheCommonControlOfTheFormerHandRights" />
-                <ScalarProperty Name="Stockholders_EquitiesAdjustments" ColumnName="Stockholders'EquitiesAdjustments" />
-                <ScalarProperty Name="RetainedEarnings_" ColumnName="RetainedEarnings " />
-                <ScalarProperty Name="AdditionalPaid_InCapital" ColumnName="AdditionalPaid-InCapital" />
-                <ScalarProperty Name="CompanyStock" ColumnName="CompanyStock" />
-                <ScalarProperty Name="Totalliabilities" ColumnName="Totalliabilities" />
-                <ScalarProperty Name="Otherliabilities" ColumnName="Otherliabilities" />
-                <ScalarProperty Name="VariousPreparations" ColumnName="VariousPreparations" />
-                <ScalarProperty Name="Long_Termliabilities" ColumnName="Long-Termliabilities" />
-                <ScalarProperty Name="Currentliabilities" ColumnName="Currentliabilities" />
-                <ScalarProperty Name="TotalAssets" ColumnName="TotalAssets" />
-                <ScalarProperty Name="OtherAssets" ColumnName="OtherAssets" />
-                <ScalarProperty Name="IntangibleAssets" ColumnName="IntangibleAssets" />
-                <ScalarProperty Name="FixedAssets" ColumnName="FixedAssets" />
-                <ScalarProperty Name="FundsAndInvestments" ColumnName="FundsAndInvestments" />
-                <ScalarProperty Name="CurrentAssets" ColumnName="CurrentAssets" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Ticker" ColumnName="Ticker" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="IncomeStatement">
             <EntityTypeMapping TypeName="CorporateFinanceDBModel.IncomeStatement">
               <MappingFragment StoreEntitySet="IncomeStatement">
@@ -238,16 +241,16 @@
                 <ScalarProperty Name="IncomeFromContinuingOperations" ColumnName="IncomeFromContinuingOperations" />
                 <ScalarProperty Name="IncomeTaxExpense" ColumnName="IncomeTaxExpense" />
                 <ScalarProperty Name="IncomeBeforeTaxFromContinuingOperations" ColumnName="IncomeBeforeTaxFromContinuingOperations" />
-                <ScalarProperty Name="Non_OperatingExpenses" ColumnName="Non-OperatingExpenses" />
-                <ScalarProperty Name="Non_OperatingIncome" ColumnName="Non-OperatingIncome" />
+                <ScalarProperty Name="NonOperatingExpenses" ColumnName="NonOperatingExpenses" />
+                <ScalarProperty Name="NonOperatingIncome" ColumnName="NonOperatingIncome" />
                 <ScalarProperty Name="OperatingIncome" ColumnName="OperatingIncome" />
                 <ScalarProperty Name="OperatingExpenses" ColumnName="OperatingExpenses" />
-                <ScalarProperty Name="UnrealizedGainFromInter_affiliateAccounts" ColumnName="UnrealizedGainFromInter-affiliateAccounts" />
-                <ScalarProperty Name="RealizedGainFromInter_affiliateAccounts" ColumnName="RealizedGainFromInter-affiliateAccounts" />
+                <ScalarProperty Name="UnrealizedGainFromInterAffiliateAccounts" ColumnName="UnrealizedGainFromInterAffiliateAccounts" />
+                <ScalarProperty Name="RealizedGainFromInterAffiliateAccounts" ColumnName="RealizedGainFromInterAffiliateAccounts" />
                 <ScalarProperty Name="Grossprofit" ColumnName="Grossprofit" />
                 <ScalarProperty Name="CostOfGoodsSold" ColumnName="CostOfGoodsSold" />
                 <ScalarProperty Name="OperatingRevenue" ColumnName="OperatingRevenue" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Ticker" ColumnName="Ticker" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

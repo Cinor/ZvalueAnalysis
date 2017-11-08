@@ -15,9 +15,9 @@ namespace CompanyFinancialAnalysis.Models
     public partial class CompanyDataTable
     {
         public int Id { get; set; }
-        public Nullable<double> Ticker { get; set; }
-        public Nullable<double> Name { get; set; }
-        public Nullable<double> Date { get; set; }
+        public string Ticker { get; set; }
+        public string Name { get; set; }
+        public string Date { get; set; }
         public Nullable<double> WorkingCapital { get; set; }
         public Nullable<double> RetainedEarning { get; set; }
         public Nullable<double> EBIT { get; set; }

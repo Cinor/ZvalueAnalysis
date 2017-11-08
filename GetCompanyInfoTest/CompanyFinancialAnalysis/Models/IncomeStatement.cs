@@ -16,16 +16,16 @@ namespace CompanyFinancialAnalysis.Models
     {
         public int Id { get; set; }
         public string Ticker { get; set; }
-        public string Year { get; set; }
+        public string Date { get; set; }
         public Nullable<double> OperatingRevenue { get; set; }
         public Nullable<double> CostOfGoodsSold { get; set; }
         public Nullable<double> Grossprofit { get; set; }
-        public Nullable<double> RealizedGainFromInter_affiliateAccounts { get; set; }
-        public Nullable<double> UnrealizedGainFromInter_affiliateAccounts { get; set; }
+        public Nullable<double> RealizedGainFromInterAffiliateAccounts { get; set; }
+        public Nullable<double> UnrealizedGainFromInterAffiliateAccounts { get; set; }
         public Nullable<double> OperatingExpenses { get; set; }
         public Nullable<double> OperatingIncome { get; set; }
-        public Nullable<double> Non_OperatingIncome { get; set; }
-        public Nullable<double> Non_OperatingExpenses { get; set; }
+        public Nullable<double> NonOperatingIncome { get; set; }
+        public Nullable<double> NonOperatingExpenses { get; set; }
         public Nullable<double> IncomeBeforeTaxFromContinuingOperations { get; set; }
         public Nullable<double> IncomeTaxExpense { get; set; }
         public Nullable<double> IncomeFromContinuingOperations { get; set; }

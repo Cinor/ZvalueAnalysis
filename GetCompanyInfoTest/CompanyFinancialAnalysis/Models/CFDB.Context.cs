@@ -25,8 +25,8 @@ namespace CompanyFinancialAnalysis.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CompanyDataTable> CompanyDataTable { get; set; }
         public virtual DbSet<BalanceSheet> BalanceSheet { get; set; }
+        public virtual DbSet<CompanyDataTable> CompanyDataTable { get; set; }
         public virtual DbSet<IncomeStatement> IncomeStatement { get; set; }
     }
 }

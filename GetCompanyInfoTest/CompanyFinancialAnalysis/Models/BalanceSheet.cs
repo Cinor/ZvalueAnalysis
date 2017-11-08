@@ -16,20 +16,20 @@ namespace CompanyFinancialAnalysis.Models
     {
         public int Id { get; set; }
         public string Ticker { get; set; }
-        public string Year { get; set; }
+        public string Date { get; set; }
         public Nullable<double> CurrentAssets { get; set; }
-        public Nullable<double> FundsAndInvestments { get; set; }
+        public Nullable<double> NonCurrentAsset { get; set; }
         public Nullable<double> FixedAssets { get; set; }
         public Nullable<double> IntangibleAssets { get; set; }
         public Nullable<double> OtherAssets { get; set; }
         public Nullable<double> TotalAssets { get; set; }
         public Nullable<double> Currentliabilities { get; set; }
-        public Nullable<double> Long_Termliabilities { get; set; }
+        public Nullable<double> LongTermliabilities { get; set; }
         public Nullable<double> VariousPreparations { get; set; }
         public Nullable<double> Otherliabilities { get; set; }
         public Nullable<double> Totalliabilities { get; set; }
         public Nullable<double> CompanyStock { get; set; }
-        public Nullable<double> AdditionalPaid_InCapital { get; set; }
+        public Nullable<double> AdditionalPaidInCapital { get; set; }
         public Nullable<double> RetainedEarnings_ { get; set; }
         public Nullable<double> Stockholders_EquitiesAdjustments { get; set; }
         public Nullable<double> UnderTheCommonControlOfTheFormerHandRights { get; set; }
@@ -37,6 +37,7 @@ namespace CompanyFinancialAnalysis.Models
         public Nullable<double> TotalEquity { get; set; }
         public Nullable<double> NumberOfShareCapitalAwaitingRetirement { get; set; }
         public Nullable<double> EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare { get; set; }
+        public Nullable<double> BeforeTheMmergerCommonNonControllingInterestsAndlosses { get; set; }
         public Nullable<double> NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries { get; set; }
         public Nullable<double> BookValuePerShare { get; set; }
     }
