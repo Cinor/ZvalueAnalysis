@@ -56,102 +56,56 @@ namespace CompanyFinancialAnalysis.Services
             return result;
         }
 
-
         /// <summary>
         /// 測試從CompanyDataTable取值
         /// </summary>
         /// <param name="stockId"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public Company GetCompanyTable(string stockId, string date)
+        public List<Company> GetCompanyTableTenData(string stockId)
         {
-            Company company = new Company();
 
-            CFDBServices CFDB = new CFDBServices();
+            var resultList = (from DB in CFDB.CompanyDataTable
+                              where DB.Ticker == stockId && Convert.ToInt32(DB.Date.Substring(0, 4)) <= Convert.ToInt32(DateTime.Today.Year) 
+                              orderby Convert.ToInt32(DB.Date.Substring(0, 4))
+                              select DB).ToList();
 
-            var CTitem = CFDB.GetCompanyTableBystockId(stockId, date);
+            var compTenYrDataLst = (from item in resultList
+                                    select new Company()
+                                    {
+                                        Ticker = item.Ticker,
 
-            foreach (var item in CTitem)
-            {
-                company.Ticker = item.Ticker;
+                                        Name = item.Name,
 
-                company.Name = item.Name;
+                                        Date = item.Date,
 
-                company.Date = item.Date;
+                                        WorkingCapital = item.WorkingCapital.GetValueOrDefault(),
 
-                company.WorkingCapital = item.WorkingCapital.GetValueOrDefault();
+                                        RetainedEarning = item.RetainedEarning.GetValueOrDefault(),
 
-                company.RetainedEarning = item.RetainedEarning.GetValueOrDefault();
+                                        EBIT = item.EBIT.GetValueOrDefault(),
 
-                company.EBIT = item.EBIT.GetValueOrDefault();
+                                        TotalAsset = item.TotalAsset.GetValueOrDefault(),
 
-                company.TotalAsset = item.TotalAsset.GetValueOrDefault();
+                                        TotalLiability = item.TotalLiability.GetValueOrDefault(),
 
-                company.TotalLiability = item.TotalLiability.GetValueOrDefault();
+                                        Equity = item.Equity.GetValueOrDefault(),
 
-                company.Equity = item.Equity.GetValueOrDefault();
+                                        GrossSales = item.GrossSales.GetValueOrDefault(),
 
-                company.GrossSales = item.GrossSales.GetValueOrDefault();
+                                        StockPrice = item.StockPrice.GetValueOrDefault(),
 
-                company.StockPrice = item.StockPrice.GetValueOrDefault();
+                                        MarketValue = item.MarketValue.GetValueOrDefault(),
 
-                company.MarketValue = item.MarketValue.GetValueOrDefault();
+                                        CompanyStock = Convert.ToInt32(item.CompanyStock),
 
-                company.CompanyStock = Convert.ToInt32(item.CompanyStock);
+                                        ZValue = Convert.ToDouble(item.ZValue)
 
-                company.ZValue = Convert.ToDouble(item.ZValue);
+                                    }).ToList();
 
-            }
-
-            return company;
+            return compTenYrDataLst;
 
         }
-
-        //public Company GetCompanyByTwoTable(string stockId, string data)
-        //{
-        //    CFDBServices CFDB = new CFDBServices();
-
-        //    var BSData = CFDB.GetBSTableBystockId(stockId, data).ToList();
-
-        //    var ISData = CFDB.GetISTableBystockId(stockId, data).ToList();
-
-        //    var Comp = CFDB.GetCompanyTableBystockId(stockId, data).ToList();
-
-        //    var result = new Company
-        //    {
-        //        Ticker = BSData.FirstOrDefault().Ticker,
-
-        //        Name = Comp.FirstOrDefault().Name,
-
-        //        Date = BSData.FirstOrDefault(),
-
-        //        WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]),
-
-        //        RetainedEarning = StringToInt(BSData["保留盈餘"]),
-
-        //        EBIT = StringToInt(ISData["營業收入"]) - StringToInt(ISData["營業成本"]) - StringToInt(ISData["營業費用"]),
-
-        //        TotalAsset = StringToInt(BSData["資產總額"]),
-
-        //        TotalLiability = StringToInt("0"),
-
-        //        Equity = StringToInt("0"),
-
-        //        GrossSales = StringToInt(ISData["營業收入"]),
-
-        //        StockPrice = Convert.ToDouble(GetStockPriceFromYah(stockId, date)),
-
-        //        MarketValue = StringToInt(BSData["股本"]) / 10 * company.StockPrice,
-
-        //        CompanyStock = StringToInt(BSData["股本"]),
-
-        //        ZValue = GetZValue(company.WorkingCapital, company.RetainedEarning, company.EBIT, company.MarketValue, company.GrossSales, company.TotalAsset, company.TotalLiability)
-
-        //    };
-
-        //    return result;
-        //}
-
 
     }
 }
