@@ -111,19 +111,19 @@ namespace CompanyFinancialAnalysis.Services
         //{
         //    CFDBServices CFDB = new CFDBServices();
 
-        //    var BSData = CFDB.GetBSTableBystockId(stockId, data);
+        //    var BSData = CFDB.GetBSTableBystockId(stockId, data).ToList();
 
         //    var ISData = CFDB.GetISTableBystockId(stockId, data).ToList();
 
-
+        //    var Comp = CFDB.GetCompanyTableBystockId(stockId, data).ToList();
 
         //    var result = new Company
         //    {
-        //        Ticker = BSData.,
+        //        Ticker = BSData.FirstOrDefault().Ticker,
 
-        //        Name = GetStockName(stockId),
+        //        Name = Comp.FirstOrDefault().Name,
 
-        //        Date = date,
+        //        Date = BSData.FirstOrDefault(),
 
         //        WorkingCapital = StringToInt(BSData["流動資產"]) - StringToInt(BSData["流動負債"]),
 
