@@ -16,26 +16,28 @@ namespace CompanyFinancialAnalysis.Controllers
         OrderLibrary order = new OrderLibrary();
 
         // GET: Companyfinancial
+        //public async Task<ActionResult> Index()
         public async Task<ActionResult> Index()
         {
-            var result= await GetHis();
-            var last = result.Last();
+            //var result= await GetHisAsync();
+            //var last = result.Last();
 
             return View();
         }
 
-        public async Task<IList<Candle>> GetHis()
+        public async Task<string> GetHisAsync(string id)
         {
-
-            IList<Candle> result = await Yahoo.GetHistoricalAsync("6166.TW", new DateTime(2017, 11, 6),
-                                        new DateTime(2017, 11, 6), Period.Daily);
+            Program p = new Program();
+            string result = await p.GetStockPriceFromYahAsync(id, "2016Q4");
             return result;
         }
 
         [HttpPost]
-        public ActionResult Index(string stockId)
+        public async Task<ActionResult> Index(string stockId)
         {
-            order.ZvalueAnalysis(stockId);
+            //order.ZvalueAnalysis(stockId);
+
+            var r = await GetHisAsync(stockId);
 
             return View();
         }

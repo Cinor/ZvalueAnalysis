@@ -191,6 +191,9 @@
       <DependentUpon>CFDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CompanyDataTable.cs">
+      <DependentUpon>CFDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IncomeStatement.cs">
       <DependentUpon>CFDB.tt</DependentUpon>
     </Compile>
@@ -286,6 +289,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
