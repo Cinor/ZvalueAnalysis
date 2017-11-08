@@ -259,36 +259,38 @@ namespace CompanyFinancialAnalysis.Models
 
         internal static string GetStockPriceFromYah(string stockId, string date)
         {
-            try
-            {
-                var ticker = stockId + ".TW";
+            //try
+            //{
+            //    var ticker = stockId + ".TW";
 
-                var start_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), 1);
+            //    var start_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), 1);
 
-                var str_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4)).Substring(0,2) + 1.ToString()).ToDatetime();
+            //    var str_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4)).Substring(0,2) + 1.ToString()).ToDatetime();
 
-                var end_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(2)));
+            //    var end_date = new DateTime(Convert.ToInt32(date.Substring(0, 4)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(0, 2)), Convert.ToInt32(ConvertSeasonToDate(date.Substring(4)).Substring(2)));
 
-                var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
+            //    var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
 
-                var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
+            //    var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
 
-                var last = results.Result.Last();
+            //    var last = results.Result.Last();
 
-                if (last != null)
-                {
-                    return last.Close.ToString();
-                }
-                else
-                {
-                    return "0";
-                }
-            }
-            catch (Exception)
-            {
+            //    if (last != null)
+            //    {
+            //        return last.Close.ToString();
+            //    }
+            //    else
+            //    {
+            //        return "0";
+            //    }
+            //}
+            //catch (Exception)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
+
+            return "10";
         }
 
         internal static Company GetCompanyFinanceStat(string stockId, string date)
