@@ -244,6 +244,7 @@
       <LastGenOutput>CFDB.Context.cs</LastGenOutput>
       <DependentUpon>CFDB.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\CFDB.edmx.sql" />
     <Content Include="Models\CFDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CFDB.edmx</DependentUpon>
@@ -265,7 +266,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

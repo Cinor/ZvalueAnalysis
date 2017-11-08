@@ -271,7 +271,7 @@ namespace CompanyFinancialAnalysis.Models
 
                 var ed_date = (date.Substring(0, 4) + ConvertSeasonToDate(date.Substring(4))).ToDatetime();
 
-                var results = Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily);
+                var results = Task.Run(() => Yahoo.GetHistoricalAsync(ticker, start_date, end_date, Period.Daily));
 
                 var last = results.Result.Last();
 
@@ -805,16 +805,6 @@ namespace CompanyFinancialAnalysis.Models
 
                 throw;
             }
-        }
-
-        static string EncodToBig5(string source)
-        {
-            //string source = "⊃;nÅé&frac14;Ò⊃;Õ¤¤ªº¤@¯ë©Ê¿ù»~¡G&frac14;Ð·Ç GUI (⊃;Ï§Î¤Æ¥Î¤á¤¶­±)¡C";
-            byte[] unknow = Encoding.GetEncoding(28591).GetBytes(source);
-            string Big5 = Encoding.GetEncoding(950).GetString(unknow);
-            return Big5;
-            Console.WriteLine(Big5);
-            Console.ReadLine();
         }
     }
 }

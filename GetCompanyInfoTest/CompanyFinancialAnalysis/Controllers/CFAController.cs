@@ -35,9 +35,9 @@ namespace CompanyFinancialAnalysis.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(string stockId)
         {
-            //order.ZvalueAnalysis(stockId);
+            order.ZvalueAnalysis(stockId);
 
-            var r = await GetHisAsync(stockId);
+            //var r = await GetHisAsync(stockId);
 
             return View();
         }
