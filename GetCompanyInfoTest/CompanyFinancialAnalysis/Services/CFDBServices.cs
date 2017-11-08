@@ -57,8 +57,10 @@ namespace CompanyFinancialAnalysis.Services
         }
 
 
-        public void Get()
+        public void Get(string stockId, string date)
         {
+            Company company = new Company();
+
             CFDBServices CFDB = new CFDBServices();
 
             var CTitem = CFDB.GetCompanyTableBystockId(stockId, date);
