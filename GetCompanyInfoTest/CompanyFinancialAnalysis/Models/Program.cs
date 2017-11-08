@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using YahooFinanceApi;
+using CompanyFinancialAnalysis.Services;
 
 namespace CompanyFinancialAnalysis.Models
 {
@@ -118,7 +119,7 @@ namespace CompanyFinancialAnalysis.Models
                 }
 
                 //var aaa = Convert.ToInt32(BSData["流動資產"]);
-
+                
                 company.Ticker = stockId;
 
                 company.Name = GetStockName(stockId);
