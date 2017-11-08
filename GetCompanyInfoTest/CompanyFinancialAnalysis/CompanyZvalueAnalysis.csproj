@@ -191,6 +191,9 @@
       <DependentUpon>CFDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CompanyDataTable.cs">
+      <DependentUpon>CFDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IncomeStatement.cs">
       <DependentUpon>CFDB.tt</DependentUpon>
     </Compile>

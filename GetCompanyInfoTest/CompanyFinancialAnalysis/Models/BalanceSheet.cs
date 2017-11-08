@@ -16,20 +16,28 @@ namespace CompanyFinancialAnalysis.Models
     {
         public int Id { get; set; }
         public string Ticker { get; set; }
-        public string CurrentAssets { get; set; }
-        public string FundsAndInvestments { get; set; }
-        public string FixedAssets { get; set; }
-        public string IntangibleAssets { get; set; }
-        public string OtherAssets { get; set; }
-        public string TotalAssets { get; set; }
-        public string Currentliabilities { get; set; }
-        public string Long_Termliabilities { get; set; }
-        public string VariousPreparations { get; set; }
-        public string Otherliabilities { get; set; }
-        public string Totalliabilities { get; set; }
-        public string CompanyStock { get; set; }
-        public string AdditionalPaid_InCapital { get; set; }
-        public string RetainedEarnings_ { get; set; }
-        public string Stockholders_EquitiesAdjustments { get; set; }
+        public string Year { get; set; }
+        public Nullable<double> CurrentAssets { get; set; }
+        public Nullable<double> FundsAndInvestments { get; set; }
+        public Nullable<double> FixedAssets { get; set; }
+        public Nullable<double> IntangibleAssets { get; set; }
+        public Nullable<double> OtherAssets { get; set; }
+        public Nullable<double> TotalAssets { get; set; }
+        public Nullable<double> Currentliabilities { get; set; }
+        public Nullable<double> Long_Termliabilities { get; set; }
+        public Nullable<double> VariousPreparations { get; set; }
+        public Nullable<double> Otherliabilities { get; set; }
+        public Nullable<double> Totalliabilities { get; set; }
+        public Nullable<double> CompanyStock { get; set; }
+        public Nullable<double> AdditionalPaid_InCapital { get; set; }
+        public Nullable<double> RetainedEarnings_ { get; set; }
+        public Nullable<double> Stockholders_EquitiesAdjustments { get; set; }
+        public Nullable<double> UnderTheCommonControlOfTheFormerHandRights { get; set; }
+        public Nullable<double> NoncontrollingInterests { get; set; }
+        public Nullable<double> TotalEquity { get; set; }
+        public Nullable<double> NumberOfShareCapitalAwaitingRetirement { get; set; }
+        public Nullable<double> EquivalentIssueSharesOfAdvanceReceiptsForOrdinaryShare { get; set; }
+        public Nullable<double> NumberOfSharesInEntityHeldByEntityAndByItsSubsidiaries { get; set; }
+        public Nullable<double> BookValuePerShare { get; set; }
     }
 }
