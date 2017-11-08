@@ -201,6 +201,7 @@
     <Compile Include="Models\OrderLibrary.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\DBService.cs" />
     <Compile Include="ViewModel\CompanyFinancial.cs" />
   </ItemGroup>
   <ItemGroup>
