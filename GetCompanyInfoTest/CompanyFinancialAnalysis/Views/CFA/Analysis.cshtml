@@ -37,7 +37,7 @@
 <hr/>
 <p></p>
 <h2>Analysis Chart</h2>
-<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+
 <div class="container">
     
     
@@ -355,7 +355,8 @@
                             for (int j = 0; j < md[i].CFA_Information.Count; j++)
                             {
                                 int k = 2008 + j;
-                                @:{ x: @k, y:@md[i].CFA_Information[j].ZValue },
+                                var p = md[i].CFA_Information[j].compBD.CurrentAssets / md[i].CFA_Information[j].compBD.Currentliabilities;
+                                @:{ x: @k, y:@p },
                             }
                             @:]}
                         }

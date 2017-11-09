@@ -342,13 +342,15 @@ namespace CompanyFinancialAnalysis.Services
             //    ZValue = "123123123123"
             //});
 
-            var resultList = (from DB in CFDB.CompanyDataTable
+            var resultList = (from DB in CFDB.CompanyDataTable.AsEnumerable()
                                   //from DB in listitem
                               where DB.Ticker == stockId && Convert.ToInt32(DB.Date.Substring(0, 4)) <= Convert.ToInt32(DateTime.Today.Year)
                               orderby Convert.ToInt32(DB.Date.Substring(0, 4)) descending
                               select DB).Take(10).OrderBy(x=>Convert.ToInt32(x.Date.Substring(0,4)));
 
-            var compTenYrDataLst = (from item in resultList
+            var compTenYrDataLst = (from item in resultList.AsEnumerable()
+                                    join BS in CFDB.BalanceSheet on item.Ticker equals BS.Ticker
+                                    where item.Date == BS.Date
                                     select new Company()
                                     {
                                         Ticker = item.Ticker,
@@ -377,7 +379,10 @@ namespace CompanyFinancialAnalysis.Services
 
                                         CompanyStock = Convert.ToInt32(item.CompanyStock),
 
-                                        ZValue = Convert.ToDouble(item.ZValue)
+                                        ZValue = Convert.ToDouble(item.ZValue),
+
+                                        compBD = new CompanyBalanceData { CurrentAssets = BS.CurrentAssets.Value , Currentliabilities = BS.Currentliabilities.Value}
+                                        
 
                                     }).ToList();
 

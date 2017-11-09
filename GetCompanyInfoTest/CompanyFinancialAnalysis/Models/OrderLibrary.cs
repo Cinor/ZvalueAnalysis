@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using CompanyFinancialAnalysis.ViewModel;
 using CompanyFinancialAnalysis.Service;
+using CompanyFinancialAnalysis.Services;
 
 namespace CompanyFinancialAnalysis.Models
 {
@@ -43,6 +44,7 @@ namespace CompanyFinancialAnalysis.Models
         public List<CompanyFinancial> GetCompanyFinancialList(string co_group)
         {
             var co_id_group = new List<string>();
+            CFDBServices Test = new CFDBServices();
             if (String.IsNullOrEmpty(co_group)&&co_group!="1"&&co_group!="2")
             {
                 return new List<CompanyFinancial>();
@@ -66,9 +68,10 @@ namespace CompanyFinancialAnalysis.Models
             {
                 var addf = new CompanyFinancial();
                 addf.stockId = item;
-                addf.CFA_Information = GetProgram.GetCompanyTenStatDataLst(item);
+                addf.CFA_Information = Test.GetCompanyTableTenData(item);
                 rst.Add(addf);
             }
+            
 
             return rst;
             
