@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CompanyFinancialAnalysis.ViewModel;
+using CompanyFinancialAnalysis.Service;
 
 namespace CompanyFinancialAnalysis.Models
 {
@@ -25,6 +26,10 @@ namespace CompanyFinancialAnalysis.Models
             }
 
             companyfinancial.CFA_Information = GetProgram.GetCompanyTenStatDataLst(stockId);
+
+            DBService db = new DBService();
+
+            db.SaveCompanyList(companyfinancial.CFA_Information);
 
         }
 
