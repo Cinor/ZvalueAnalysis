@@ -56,19 +56,297 @@ namespace CompanyFinancialAnalysis.Services
             return result;
         }
 
+        
         /// <summary>
-        /// 測試從CompanyDataTable取值
+        /// 依照stockId從CompanyDataTable取10筆近年資料
         /// </summary>
         /// <param name="stockId"></param>
         /// <param name="date"></param>
-        /// <returns></returns>
+        /// <returns> List<Company> TenData </returns>
         public List<Company> GetCompanyTableTenData(string stockId)
         {
 
+            //List<CompanyDataTable> listitem = new List<CompanyDataTable>();
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2017Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2016Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2015Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2014Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2013Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2012Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2011Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2010Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2009Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2008Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2007Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2006Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2005Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2004Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2003Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+            //listitem.Add(new CompanyDataTable
+            //{
+            //    Ticker = "6166",
+            //    Name = "小倒暗",
+            //    Date = "2002Q4",
+            //    WorkingCapital = 12213132,
+            //    RetainedEarning = 13123123,
+            //    EBIT = 123123123,
+            //    TotalAsset = 123123123,
+            //    TotalLiability = 123123123,
+            //    Equity = 123123123,
+            //    GrossSales = 123123123,
+            //    StockPrice = 123123123,
+            //    MarketValue = 123123123123,
+            //    CompanyStock = 5000,
+            //    ZValue = "123123123123"
+            //});
+
             var resultList = (from DB in CFDB.CompanyDataTable
-                              where DB.Ticker == stockId && Convert.ToInt32(DB.Date.Substring(0, 4)) <= Convert.ToInt32(DateTime.Today.Year) 
-                              orderby Convert.ToInt32(DB.Date.Substring(0, 4))
-                              select DB).ToList();
+                                  //from DB in listitem
+                              where DB.Ticker == stockId && Convert.ToInt32(DB.Date.Substring(0, 4)) <= Convert.ToInt32(DateTime.Today.Year)
+                              orderby Convert.ToInt32(DB.Date.Substring(0, 4)) descending
+                              select DB).Take(10).OrderBy(x=>Convert.ToInt32(x.Date.Substring(0,4)));
 
             var compTenYrDataLst = (from item in resultList
                                     select new Company()

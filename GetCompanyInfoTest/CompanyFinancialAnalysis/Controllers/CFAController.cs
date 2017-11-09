@@ -8,6 +8,7 @@ using CompanyFinancialAnalysis.ViewModel;
 using YahooFinanceApi;
 using System.Threading;
 using System.Threading.Tasks;
+using CompanyFinancialAnalysis.Services;
 
 namespace CompanyFinancialAnalysis.Controllers
 {
@@ -25,17 +26,21 @@ namespace CompanyFinancialAnalysis.Controllers
             return View();
         }
 
-        public async Task<string> GetHisAsync(string id)
-        {
-            Program p = new Program();
-            string result = await p.GetStockPriceFromYahAsync(id, "2016Q4");
-            return result;
-        }
+        //public async Task<string> GetHisAsync(string id)
+        //{
+        //    Program p = new Program();
+        //    string result = await p.GetStockPriceFromYahAsync(id, "2016Q4");
+        //    return result;
+        //}
 
         [HttpPost]
         public async Task<ActionResult> Index(string stockId)
         {
-            order.ZvalueAnalysis(stockId);
+            
+            //CFDBServices Test = new CFDBServices();
+            //Test.GetCompanyTableTenData();
+
+            //order.ZvalueAnalysis(stockId);
 
             //var r = await GetHisAsync(stockId);
 
