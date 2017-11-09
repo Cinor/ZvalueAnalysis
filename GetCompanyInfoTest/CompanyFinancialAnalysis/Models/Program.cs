@@ -14,45 +14,6 @@ namespace CompanyFinancialAnalysis.Models
 {
     public class Program
     {
-        public void Main(string stockId)
-        {
-            try
-            {
-
-                while (true)
-                {
-                    Console.WriteLine("輸入股票代號");
-
-                    //var stockId = Console.ReadLine();
-
-                    if (CheckValidStockId(stockId))
-                    {
-                        ShowCompLstZValue(GetCompanyTenStatDataLst(stockId));
-
-                        //Console.WriteLine();
-                    }
-                    else
-                    {
-                        if (stockId == "")
-                        {
-                            break;
-                        }
-
-                        //Console.WriteLine();
-
-                        Console.WriteLine("請輸入正確的股票代號");
-                    }
-
-                    Console.Read();
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
         /// <summary>
         /// 取得ifrs前的財務報表
         /// </summary>
@@ -292,7 +253,7 @@ namespace CompanyFinancialAnalysis.Models
             }
         }
 
-
+        //沒有使用
         public async Task<string> GetStockPriceFromYahAsync(string stockId, string date)
         {
             try
@@ -327,6 +288,12 @@ namespace CompanyFinancialAnalysis.Models
             }
         }
 
+        /// <summary>
+        /// 取公司財報資料
+        /// </summary>
+        /// <param name="stockId"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         internal static Company GetCompanyFinanceStat(string stockId, string date)
 
         {

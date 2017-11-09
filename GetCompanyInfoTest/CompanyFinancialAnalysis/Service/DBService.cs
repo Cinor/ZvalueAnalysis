@@ -26,6 +26,7 @@ namespace CompanyFinancialAnalysis.Service
 
                         CompanyDataTable newCmp = new CompanyDataTable
                         {
+                            Id = cmpResult.Id,
                             Ticker = comp.Ticker,
                             Name = comp.Name,
                             Date = comp.Date,
@@ -42,14 +43,27 @@ namespace CompanyFinancialAnalysis.Service
                             ZValue = comp.ZValue.ToString()
                         };
 
-                        _cfDB.Entry(cmpResult).CurrentValues.SetValues(newCmp);
+                        if (cmpResult.Equals(newCmp))
+                        {
+                            _cfDB.Entry(cmpResult).State = EntityState.Unchanged;
+                        }
+                        else
+                        {
+                            _cfDB.Entry(cmpResult).CurrentValues.SetValues(newCmp);
 
-                        _cfDB.Entry(cmpResult).State = EntityState.Modified;
+                            _cfDB.Entry(cmpResult).State = EntityState.Modified;
+                        }
+
+
+                        //_cfDB.Entry(cmpResult).CurrentValues.SetValues(newCmp);
+
+                        //_cfDB.Entry(cmpResult).State = EntityState.Modified;
 
                         BalanceSheet bsResult = _cfDB.BalanceSheet.Single(b => (b.Ticker == comp.Ticker && b.Date == comp.Date));
 
                         BalanceSheet newCmpB = new BalanceSheet
                         {
+                            Id = bsResult.Id,
                             Ticker = comp.Ticker,
                             Date = comp.Date,
                             AdditionalPaidInCapital = comp.compBD.AdditionalPaidInCapital,
@@ -77,14 +91,26 @@ namespace CompanyFinancialAnalysis.Service
                             VariousPreparations = comp.compBD.VariousPreparations
                         };
 
-                        _cfDB.Entry(bsResult).CurrentValues.SetValues(newCmpB);
+                        if (bsResult.Equals(newCmpB))
+                        {
+                            _cfDB.Entry(bsResult).State = EntityState.Unchanged;
+                        }
+                        else
+                        {
+                            _cfDB.Entry(bsResult).CurrentValues.SetValues(newCmpB);
 
-                        _cfDB.Entry(bsResult).State = EntityState.Modified;
+                            _cfDB.Entry(bsResult).State = EntityState.Modified;
+                        }
+
+                        //_cfDB.Entry(bsResult).CurrentValues.SetValues(newCmpB);
+
+                        //_cfDB.Entry(bsResult).State = EntityState.Modified;
 
                         IncomeStatement isResult = _cfDB.IncomeStatement.Single(b => (b.Ticker == comp.Ticker && b.Date == comp.Date));
 
                         IncomeStatement newCmpI = new IncomeStatement
                         {
+                            Id = isResult.Id,
                             Ticker = comp.Ticker,
                             Date = comp.Date,
                             CostOfGoodsSold = comp.compCD.CostOfGoodsSold,
@@ -106,9 +132,20 @@ namespace CompanyFinancialAnalysis.Service
                             IncomeOnDiscontinuedOperations = comp.compCD.IncomeOnDiscontinuedOperations
                         };
 
-                        _cfDB.Entry(isResult).CurrentValues.SetValues(newCmpI);
+                        if (isResult.Equals(newCmpI))
+                        {
+                            _cfDB.Entry(bsResult).State = EntityState.Unchanged;
+                        }
+                        else
+                        {
+                            _cfDB.Entry(isResult).CurrentValues.SetValues(newCmpI);
 
-                        _cfDB.Entry(isResult).State = EntityState.Modified;
+                            _cfDB.Entry(isResult).State = EntityState.Modified;
+                        }
+
+                        //_cfDB.Entry(isResult).CurrentValues.SetValues(newCmpI);
+
+                        //_cfDB.Entry(isResult).State = EntityState.Modified;
 
                         //var result = _cfDB.SaveChanges();
                     }
