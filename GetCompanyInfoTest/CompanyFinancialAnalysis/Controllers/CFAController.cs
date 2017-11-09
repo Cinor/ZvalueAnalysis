@@ -8,7 +8,7 @@ using CompanyFinancialAnalysis.ViewModel;
 using YahooFinanceApi;
 using System.Threading;
 using System.Threading.Tasks;
-using CompanyFinancialAnalysis.Services;
+using CompanyFinancialAnalysis.Service;
 
 namespace CompanyFinancialAnalysis.Controllers
 {
@@ -36,11 +36,11 @@ namespace CompanyFinancialAnalysis.Controllers
         [HttpPost]
         public ActionResult Index(string stockId)
         {
-            
+
             //CFDBServices Test = new CFDBServices();
             //Test.GetCompanyTableTenData();
 
-            //order.ZvalueAnalysis(stockId);
+            order.ZvalueAnalysis(stockId);
 
             //var r = await GetHisAsync(stockId);
 

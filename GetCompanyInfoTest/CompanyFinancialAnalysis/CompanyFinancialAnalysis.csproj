@@ -241,6 +241,7 @@
     </EntityDeploy>
     <Content Include="Models\CFDB.edmx.diagram">
       <DependentUpon>CFDB.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\CFDB.Context.tt">

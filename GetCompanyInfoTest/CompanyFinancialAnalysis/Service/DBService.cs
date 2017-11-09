@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CompanyFinancialAnalysis.Models;
-DBusing System.Data.Entity;
+using System.Data.Entity;
 
 namespace CompanyFinancialAnalysis.Service
 {

@@ -33,6 +33,7 @@ namespace CompanyFinancialAnalysis.Models
             RetainedEarning = bsDic["保留盈餘"];
             Equity = bsDic.ContainsKey("權益總計") ? bsDic["權益總計"] :
                      bsDic.ContainsKey("股東權益總計") ? bsDic["股東權益總計"] :
+                     bsDic.ContainsKey("權益總額")? bsDic["權益總額"]:
                      0;
             UnderTheCommonControlOfTheFormerHandRights = bsDic.ContainsKey("共同控制下前手權益") ? bsDic["共同控制下前手權益"]:0;
             NoncontrollingInterests = bsDic.ContainsKey("非控制權益") ? bsDic["非控制權益"] : 0;
