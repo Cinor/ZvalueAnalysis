@@ -613,7 +613,7 @@ namespace Test
         /// </summary>
         /// <param name="stockId"></param>
         /// <returns></returns>
-        internal static bool CheckValidStockId(string stockId)
+        public static bool CheckValidStockId(string stockId)
         {
             try
             {

@@ -19,7 +19,10 @@ namespace CompanyFinancialAnalysis.Models
         {
             CompanyFinancial companyfinancial = new CompanyFinancial();
 
-            companyfinancial.stockId = stockId;
+            if (GetProgram.CheckValidStockId(stockId))
+            {
+                companyfinancial.stockId = stockId;
+            }
 
             companyfinancial.CFA_Information = GetProgram.GetCompanyTenStatDataLst(stockId);
 
