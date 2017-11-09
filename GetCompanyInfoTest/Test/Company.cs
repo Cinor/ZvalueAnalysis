@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompanyFinancialAnalysis.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,5 +53,9 @@ namespace Test
         /// 股東權益
         /// </summary>
         public double Equity { get; set; }
+
+        public CompanyBalanceData companyBalanceData{ get; set; }
+
+        public CompanyCashData companyCashData { get; set; }
     }
 }

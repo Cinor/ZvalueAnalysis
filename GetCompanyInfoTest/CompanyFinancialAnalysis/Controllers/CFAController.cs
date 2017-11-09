@@ -18,7 +18,7 @@ namespace CompanyFinancialAnalysis.Controllers
 
         // GET: Companyfinancial
         //public async Task<ActionResult> Index()
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             //var result= await GetHisAsync();
             //var last = result.Last();
@@ -34,7 +34,7 @@ namespace CompanyFinancialAnalysis.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult> Index(string stockId)
+        public ActionResult Index(string stockId)
         {
             
             //CFDBServices Test = new CFDBServices();

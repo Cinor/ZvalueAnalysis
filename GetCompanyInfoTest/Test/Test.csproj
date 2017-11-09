@@ -76,5 +76,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CompanyFinancialAnalysis\CompanyZvalueAnalysis.csproj">
+      <Project>{C8F2D1E1-DC44-4671-A41C-ABCDBB00B5C6}</Project>
+      <Name>CompanyZvalueAnalysis</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

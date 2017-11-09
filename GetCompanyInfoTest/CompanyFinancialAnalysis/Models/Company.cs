@@ -21,7 +21,9 @@ namespace CompanyFinancialAnalysis.Models
         //營運資金
         public double WorkingCapital { get; set; }
 
-        //保留盈餘
+        /// <summary>
+        /// 保留盈餘
+        /// </summary>
         public double RetainedEarning { get; set; }
 
         //營業利益
@@ -52,5 +54,9 @@ namespace CompanyFinancialAnalysis.Models
         /// 股東權益
         /// </summary>
         public double Equity { get; set; }
+
+        public CompanyBalanceData compBD { get; set; }
+
+        public CompanyCashData compCD { get; set; }
     }
 }
