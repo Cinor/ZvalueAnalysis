@@ -13,5 +13,7 @@ namespace CompanyFinancialAnalysis.ViewModel
 
         //股票代號
         public string stockId { get; set; }
+
+        public string stockName { get; set; }
     }
 }

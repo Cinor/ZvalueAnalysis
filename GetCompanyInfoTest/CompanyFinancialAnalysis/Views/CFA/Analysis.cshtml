@@ -38,46 +38,13 @@
 <p></p>
 <h2>Analysis Chart</h2>
 
-<div class="container">
+@*<div class="container">
     
     
     <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Zscore</a>
-                </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div id="chartContainer" style="height: 400px; width: 100%;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">EBIT</a>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div id="chartContainer2" style="height: 400px; width: 100%;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">流動比率</a>
-                </h4>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div id="chartContainer3" style="height: 400px; width: 100%;"></div>
-                </div>
-            </div>
-        </div>
+        
+        
+        
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -103,102 +70,244 @@
             </div>
         </div>
     </div>
+</div>*@
+
+
+<p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Zscore</a>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">EBIT</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2-1" aria-expanded="false" aria-controls="multiCollapseExample2-1">EBIT/總資產</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">保留盈餘</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3-1" aria-expanded="false" aria-controls="multiCollapseExample3-1">保留盈餘/總資產</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">營運資金</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4-1" aria-expanded="false" aria-controls="multiCollapseExample4-1">營運資金/總資產</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">總市值</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5-1" aria-expanded="false" aria-controls="multiCollapseExample5-1">總市值/總負債</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6" aria-expanded="false" aria-controls="multiCollapseExample6">銷貨收入</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6-1" aria-expanded="false" aria-controls="multiCollapseExample6-1">銷貨收入/總資產</button>
+</p>
+<p>
+
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample7" aria-expanded="false" aria-controls="multiCollapseExample7">總資產</button>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample8" aria-expanded="false" aria-controls="multiCollapseExample8">總負債</button>
+</p>
+<div class="row">
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">Zscore</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">EBIT</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer2" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample2-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2-1">EBIT/總資產</a>
+                    </h4>
+                </div>
+                <div id="collapse2-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer2-1" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">保留盈餘</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer3" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample3-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3-1">保留盈餘/總資產</a>
+                    </h4>
+                </div>
+                <div id="collapse3-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer3-1" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">營運資金</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer4" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample4-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4-1">營運資金/總資產</a>
+                    </h4>
+                </div>
+                <div id="collapse4-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer4-1" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse5">總市值</a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer5" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample5-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse5-1">總市值/總負債</a>
+                    </h4>
+                </div>
+                <div id="collapse5-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer5-1" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse6">銷貨收入</a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer6" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample6-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse6-1">銷貨收入/總資產</a>
+                    </h4>
+                </div>
+                <div id="collapse6-1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer6-1" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse7">總資產</a>
+                    </h4>
+                </div>
+                <div id="collapse7" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer7" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-6">
+        <div class="collapse multi-collapse" id="multiCollapseExample8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse8">總負債</a>
+                    </h4>
+                </div>
+                <div id="collapse8" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div id="chartContainer8" style="height: 400px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 
 
     @{ var md = Model.ToList();}
     @section scripts{
-
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script>
-
-        // Load the Visualization API and the corechart package.
-        google.charts.load('current', { 'packages': ['corechart'] });
-
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawCurveTypes);
-
-        // Callback that creates and populates a data table,
-        // instantiates the pie chart, passes in the data and
-        // draws it.
-        function drawCurveTypes() {
-
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'X');
-
-            @{
-                foreach (var item in Model)
-                {
-                    @:data.addColumn('number','@item.stockId');
-                }
-                if (Model.Count()!=0)
-                {
-                    for (int i = 0; i < 9; i++)
-                    {
-                        int j = 2008 + i;
-                    @:data.addRows([['@j',@md[0].CFA_Information[i].ZValue,@md[1].CFA_Information[i].ZValue,@md[2].CFA_Information[i].ZValue]]);
-                    }
-                }
-
-            }
-
-            var options = {
-                hAxis: {
-                    title: 'Year'
-                },
-                vAxis: {
-                    title: 'Zscore'
-                },
-                series: {
-                    1: { curveType: 'function' }
-                }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-
-            //-------------------------------------------------------------------------
-
-            var data2 = new google.visualization.DataTable();
-            data2.addColumn('string', 'X');
-
-            @{
-                foreach (var item in Model)
-                {
-                    @:data2.addColumn('number','@item.stockId');
-                }
-                if (Model.Count()!=0)
-                {
-                    for (int i = 0; i < 9; i++)
-                    {
-                        int j = 2008 + i;
-                    @:data2.addRows([['@j',@md[0].CFA_Information[i].EBIT,@md[1].CFA_Information[i].EBIT,@md[2].CFA_Information[i].EBIT]]);
-                    }
-                }
-
-            }
-
-            var options2 = {
-                hAxis: {
-                    title: 'Year'
-                },
-                vAxis: {
-                    title: 'EBIT'
-                },
-                series: {
-                    1: { curveType: 'function' }
-                }
-            };
-
-            var chart2 = new google.visualization.LineChart(document.getElementById('chart2_div'));
-            chart2.draw(data2, options2);
-
-
-        }
-        </script>
-
-
-
 
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         <script type="text/javascript">
@@ -207,9 +316,9 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 1100,
+                width: 500,
                 title: {
-                    text: "Zscore分析"
+                    text: "Zscore"
                 },
                 legend: {
                     horizontalAlign: "right", // left, center ,right
@@ -223,9 +332,6 @@
                 axisX: {
                     valueFormatString: "####"
                 },
-                axisY: {
-                    title: "Zscore",
-                },
                 data: [
                     @{
                         for (int i=0;i< md.Count;i++)
@@ -238,8 +344,8 @@
                             {
                                 @:,{type: "spline",
                             }
-                            @:xValueFormatString: "@md[i].stockId Year ####",
-                            @:name: "@md[i].stockId",
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
                             @:showInLegend:true,
                             @:dataPoints:[
 
@@ -261,9 +367,9 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 1100,
+                width: 500,
                 title: {
-                    text: "EBIT分析"
+                    text: "EBIT"
                 },
                 legend: {
                     horizontalAlign: "right", // left, center ,right
@@ -292,8 +398,8 @@
                             {
                                 @:,{type: "spline",
                             }
-                            @:xValueFormatString: "@md[i].stockId Year ####",
-                            @:name: "@md[i].stockId",
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
                             @:showInLegend:true,
                             @:dataPoints:[
 
@@ -311,13 +417,13 @@
             });
             chart2.render();
 
-            var chart3 = new CanvasJS.Chart("chartContainer3", {
+            var chart21 = new CanvasJS.Chart("chartContainer2-1", {
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 1100,
+                width: 500,
                 title: {
-                    text: "流動比率分析"
+                    text: "EBIT/總資產"
                 },
                 legend: {
                     horizontalAlign: "right", // left, center ,right
@@ -331,8 +437,57 @@
                 axisX: {
                     valueFormatString: "####"
                 },
-                axisY: {
-                    title: "流動比率",
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].EBIT/md[i].CFA_Information[j].TotalAsset;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart21.render();
+
+            var chart3 = new CanvasJS.Chart("chartContainer3", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "保留盈餘"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
                 },
                 data: [
                     @{
@@ -346,8 +501,8 @@
                             {
                                 @:,{type: "spline",
                             }
-                            @:xValueFormatString: "@md[i].stockId Year ####",
-                            @:name: "@md[i].stockId",
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
                             @:showInLegend:true,
                             @:dataPoints:[
 
@@ -355,7 +510,7 @@
                             for (int j = 0; j < md[i].CFA_Information.Count; j++)
                             {
                                 int k = 2008 + j;
-                                var p = md[i].CFA_Information[j].compBD.CurrentAssets / md[i].CFA_Information[j].compBD.Currentliabilities;
+                                var p = md[i].CFA_Information[j].RetainedEarning;
                                 @:{ x: @k, y:@p },
                             }
                             @:]}
@@ -366,13 +521,13 @@
             });
             chart3.render();
 
-            var chart4 = new CanvasJS.Chart("chartContainer4", {
+            var chart31 = new CanvasJS.Chart("chartContainer3-1", {
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width:1100,
+                width: 500,
                 title: {
-                    text: "股東權益對負債比率分析"
+                    text: "保留盈餘/總資產"
                 },
                 legend: {
                     horizontalAlign: "right", // left, center ,right
@@ -386,8 +541,57 @@
                 axisX: {
                     valueFormatString: "####"
                 },
-                axisY: {
-                    title: "股東權益對負債比率",
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].RetainedEarning / md[i].CFA_Information[j].TotalAsset;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart31.render();
+
+            var chart4 = new CanvasJS.Chart("chartContainer4", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width:500,
+                title: {
+                    text: "營運資金"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
                 },
                 data: [
                     @{
@@ -401,8 +605,8 @@
                             {
                                 @:,{type: "spline",
                             }
-                            @:xValueFormatString: "@md[i].stockId Year ####",
-                            @:name: "@md[i].stockId",
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
                             @:showInLegend:true,
                             @:dataPoints:[
 
@@ -410,7 +614,7 @@
                             for (int j = 0; j < md[i].CFA_Information.Count; j++)
                             {
                                 int k = 2008 + j;
-                                var p = md[i].CFA_Information[j].Equity / md[i].CFA_Information[j].TotalLiability;
+                                var p = md[i].CFA_Information[j].WorkingCapital;
                                 @:{ x: @k, y:@p },
                             }
                             @:]}
@@ -421,13 +625,13 @@
             });
             chart4.render();
 
-            var chart5 = new CanvasJS.Chart("chartContainer5", {
+            var chart41 = new CanvasJS.Chart("chartContainer4-1", {
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 1100,
+                width:500,
                 title: {
-                    text: "負債比率分析"
+                    text: "營運資金/總資產"
                 },
                 legend: {
                     horizontalAlign: "right", // left, center ,right
@@ -441,8 +645,57 @@
                 axisX: {
                     valueFormatString: "####"
                 },
-                axisY: {
-                    title: "負債比率",
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].WorkingCapital / md[i].CFA_Information[j].TotalAsset;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart41.render();
+
+            var chart5 = new CanvasJS.Chart("chartContainer5", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "總市值"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
                 },
                 data: [
                     @{
@@ -456,8 +709,8 @@
                             {
                                 @:,{type: "spline",
                             }
-                            @:xValueFormatString: "@md[i].stockId Year ####",
-                            @:name: "@md[i].stockId",
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
                             @:showInLegend:true,
                             @:dataPoints:[
 
@@ -465,7 +718,7 @@
                             for (int j = 0; j < md[i].CFA_Information.Count; j++)
                             {
                                 int k = 2008 + j;
-                                var p = md[i].CFA_Information[j].TotalLiability / md[i].CFA_Information[j].TotalAsset;
+                                var p = md[i].CFA_Information[j].MarketValue;
                                 @:{ x: @k, y:@p },
                             }
                             @:]}
@@ -475,12 +728,268 @@
                     ]
             });
             chart5.render();
+
+            var chart51 = new CanvasJS.Chart("chartContainer5-1", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "總市值/總負債"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
+                },
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].MarketValue / md[i].CFA_Information[j].TotalLiability;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart51.render();
+
+            var chart6 = new CanvasJS.Chart("chartContainer6", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "銷貨收入"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
+                },
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].GrossSales;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart6.render();
+
+            var chart61 = new CanvasJS.Chart("chartContainer6-1", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "銷貨收入/總資產"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
+                },
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].GrossSales / md[i].CFA_Information[j].TotalAsset;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart61.render();
+
+            var chart7 = new CanvasJS.Chart("chartContainer7", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "總資產"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
+                },
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].TotalAsset;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart7.render();
+
+            var chart8 = new CanvasJS.Chart("chartContainer8", {
+                theme: "theme2",
+                zoomEnabled: true,
+                animationEnabled: true,
+                width: 500,
+                title: {
+                    text: "總負債"
+                },
+                legend: {
+                    horizontalAlign: "right", // left, center ,right
+                    verticalAlign: "top",  // top, center, bottom
+                },
+                subtitles: [
+                    {
+                        text: "3家公司依年度分析"
+                    }
+                ],
+                axisX: {
+                    valueFormatString: "####"
+                },
+                data: [
+                    @{
+                        for (int i=0;i< md.Count;i++)
+                        {
+                            if (i==0)
+                            {
+                                @:{type: "spline",
+                            }
+                            else
+                            {
+                                @:,{type: "spline",
+                            }
+                            @:xValueFormatString: "@md[i].stockName Year ####",
+                            @:name: "@md[i].stockName",
+                            @:showInLegend:true,
+                            @:dataPoints:[
+
+
+                            for (int j = 0; j < md[i].CFA_Information.Count; j++)
+                            {
+                                int k = 2008 + j;
+                                var p = md[i].CFA_Information[j].TotalLiability;
+                                @:{ x: @k, y:@p },
+                            }
+                            @:]}
+                        }
+
+                    }
+                    ]
+            });
+            chart8.render();
         };
         </script>
-
-
-
-
 
         @Scripts.Render("~/bundles/jqueryval")
 
