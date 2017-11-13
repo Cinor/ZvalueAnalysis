@@ -16,7 +16,8 @@ namespace CompanyFinancialAnalysis.Models
         {
             OperatingRevenue = isDic.ContainsKey("營業收入") ? isDic["營業收入"] : 0;
             CostOfGoodsSold = isDic.ContainsKey("營業成本") ? isDic["營業成本"] : 0;
-            Grossprofit = isDic.ContainsKey("營業毛利（毛損）") ? isDic["營業毛利（毛損）"] : 0;
+            Grossprofit = isDic.ContainsKey("營業毛利（毛損）") ? isDic["營業毛利（毛損）"] :
+                          isDic.ContainsKey("營業毛利(毛損)") ? isDic["營業毛利(毛損)"] : 0;
             RealizedGainFromInterAffiliateAccounts = isDic.ContainsKey("聯屬公司間未實現利益") ? isDic["聯屬公司間未實現利益"] : 0;
             UnrealizedGainFromInterAffiliateAccounts = isDic.ContainsKey("聯署公司間已實現利益") ? isDic["聯署公司間已實現利益"] : 0;
             OperatingExpenses = isDic.ContainsKey("營業費用") ? isDic["營業費用"] : 0;
