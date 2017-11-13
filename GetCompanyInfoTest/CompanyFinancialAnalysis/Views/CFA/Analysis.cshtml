@@ -38,59 +38,56 @@
 <p></p>
 <h2>Analysis Chart</h2>
 
-@*<div class="container">
-    
-    
-    <div class="panel-group" id="accordion">
-        
-        
-        
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">股東權益對負債比率</a>
-                </h4>
-            </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div id="chartContainer4" style="height: 400px; width: 100%;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">負債比率</a>
-                </h4>
-            </div>
-            <div id="collapse5" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div id="chartContainer5" style="height: 400px; width: 100%;"></div>
-                </div>
-            </div>
-        </div>
+
+<p>
+    <img id="ZscoreImg" name="ZscoreImg" src="~/Content/Img/ZscoreDescription.PNG" />
+</p>
+
+<p>
+    <div class="col-md-12">
+        <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Zscore</a>
     </div>
-</div>*@
-
-
-<p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Zscore</a>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">EBIT</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2-1" aria-expanded="false" aria-controls="multiCollapseExample2-1">EBIT/總資產</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">保留盈餘</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3-1" aria-expanded="false" aria-controls="multiCollapseExample3-1">保留盈餘/總資產</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">營運資金</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4-1" aria-expanded="false" aria-controls="multiCollapseExample4-1">營運資金/總資產</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">總市值</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5-1" aria-expanded="false" aria-controls="multiCollapseExample5-1">總市值/總負債</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6" aria-expanded="false" aria-controls="multiCollapseExample6">銷貨收入</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6-1" aria-expanded="false" aria-controls="multiCollapseExample6-1">銷貨收入/總資產</button>
 </p>
+<br />
 <p>
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">EBIT</button>
 
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample7" aria-expanded="false" aria-controls="multiCollapseExample7">總資產</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample8" aria-expanded="false" aria-controls="multiCollapseExample8">總負債</button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2-1" aria-expanded="false" aria-controls="multiCollapseExample2-1">EBIT/總資產</button>
+    </div>
+
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">保留盈餘</button>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample3-1" aria-expanded="false" aria-controls="multiCollapseExample3-1">保留盈餘/總資產</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">營運資金</button>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample4-1" aria-expanded="false" aria-controls="multiCollapseExample4-1">營運資金/總資產</button>
+    </div>
 </p>
+<br />
+<p>
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5" aria-expanded="false" aria-controls="multiCollapseExample5">總市值</button>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample5-1" aria-expanded="false" aria-controls="multiCollapseExample5-1">總市值/總負債</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6" aria-expanded="false" aria-controls="multiCollapseExample6">銷貨收入</button>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample6-1" aria-expanded="false" aria-controls="multiCollapseExample6-1">銷貨收入/總資產</button>
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample7" aria-expanded="false" aria-controls="multiCollapseExample7">總資產</button>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample8" aria-expanded="false" aria-controls="multiCollapseExample8">總負債</button>
+    </div>
+</p>
+<p> </p>
+<hr />
+<br />
 <div class="row">
     <div class="col col-md-6">
         <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -102,7 +99,7 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -118,7 +115,7 @@
                 </div>
                 <div id="collapse2" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer2" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer2" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -134,7 +131,7 @@
                 </div>
                 <div id="collapse2-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer2-1" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer2-1" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -150,7 +147,7 @@
                 </div>
                 <div id="collapse3" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer3" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer3" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -166,7 +163,7 @@
                 </div>
                 <div id="collapse3-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer3-1" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer3-1" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -182,7 +179,7 @@
                 </div>
                 <div id="collapse4" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer4" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer4" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -198,7 +195,7 @@
                 </div>
                 <div id="collapse4-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer4-1" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer4-1" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -214,7 +211,7 @@
                 </div>
                 <div id="collapse5" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer5" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer5" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -230,7 +227,7 @@
                 </div>
                 <div id="collapse5-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer5-1" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer5-1" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -246,7 +243,7 @@
                 </div>
                 <div id="collapse6" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer6" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer6" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -262,7 +259,7 @@
                 </div>
                 <div id="collapse6-1" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer6-1" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer6-1" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -278,7 +275,7 @@
                 </div>
                 <div id="collapse7" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer7" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer7" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -294,7 +291,7 @@
                 </div>
                 <div id="collapse8" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <div id="chartContainer8" style="height: 400px; width: 100%;"></div>
+                        <div id="chartContainer8" style="height: 350px; width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -316,7 +313,8 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                height: 350,
+                width: 420,
                 title: {
                     text: "Zscore"
                 },
@@ -331,6 +329,27 @@
                 ],
                 axisX: {
                     valueFormatString: "####"
+                },
+                axisY: {
+                    stripLines: [
+                        {
+                            value: 1.81,
+                            lineDashType: "dot",
+                            color:"red",
+                            labelPlacement: "outside",
+                            lineDashType: "dashDot",
+                            thickness: 3
+                        }
+                        , {
+                            value: 2.99,
+                            lineDashType: "dot",
+                            color:"green",
+                            labelPlacement: "outside",
+                            lineDashType: "dashDot",
+                            thickness: 3,
+
+                        }
+                    ]
                 },
                 data: [
                     @{
@@ -359,6 +378,7 @@
                         }
 
                     }
+                    
                     ]
             });
             chart.render();
@@ -367,7 +387,8 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                height: 350,
+                width: 380,
                 title: {
                     text: "EBIT"
                 },
@@ -382,9 +403,6 @@
                 ],
                 axisX: {
                     valueFormatString: "####"
-                },
-                axisY: {
-                    title: "EBIT",
                 },
                 data: [
                     @{
@@ -421,7 +439,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "EBIT/總資產"
                 },
@@ -473,7 +491,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "保留盈餘"
                 },
@@ -525,7 +543,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "保留盈餘/總資產"
                 },
@@ -577,7 +595,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width:500,
+                width:380,
                 title: {
                     text: "營運資金"
                 },
@@ -629,7 +647,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width:500,
+                width:380,
                 title: {
                     text: "營運資金/總資產"
                 },
@@ -681,7 +699,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "總市值"
                 },
@@ -733,7 +751,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "總市值/總負債"
                 },
@@ -785,7 +803,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "銷貨收入"
                 },
@@ -837,7 +855,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "銷貨收入/總資產"
                 },
@@ -889,7 +907,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "總資產"
                 },
@@ -941,7 +959,7 @@
                 theme: "theme2",
                 zoomEnabled: true,
                 animationEnabled: true,
-                width: 500,
+                width: 380,
                 title: {
                     text: "總負債"
                 },
