@@ -196,7 +196,6 @@
     <Compile Include="Models\CompanyDataTable.cs">
       <DependentUpon>CFDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CompanyToView.cs" />
     <Compile Include="Models\IncomeStatement.cs">
       <DependentUpon>CFDB.tt</DependentUpon>
     </Compile>
